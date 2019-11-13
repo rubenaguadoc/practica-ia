@@ -17,7 +17,7 @@ const map = d3
     left: 100,
   })
   .on('click', name => {
-    console.log(name);
+    console.log(data.stations[name]);
   });
 
 container.datum(data).call(map);
