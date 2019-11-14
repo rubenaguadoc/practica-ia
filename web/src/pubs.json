@@ -155,9 +155,262 @@
     "Ochanomizu": {
       "label": "Ochanomizu",
       "id": 36
+    },
+    "OchanomizuA": {
+      "label": "",
+      "id": 36
     }
   },
   "lines": [
+    {
+      "name": "Sobu",
+      "label": "Sobu",
+      "color": "#ffcc66",
+      "shiftCoords": [
+        0,
+        0
+      ],
+      "nodes": [
+        {
+          "coords": [
+            -10,
+            -15
+          ]
+        },
+        {
+          "coords": [
+            -4,
+            -15
+          ]
+        },
+        {
+          "coords": [
+            -4,
+            -21
+          ],
+          "marker": "interchange",
+          "name": "ShinjukuA",
+          "labelPos": "E"
+        },
+        {
+          "coords": [
+            -4,
+            -25
+          ],
+          "marker": "interchange",
+          "name": "YoyogiA",
+          "labelPos": "E"
+        },
+        {
+          "coords": [
+            -4,
+            -30
+          ]
+        },
+        {
+          "coords": [
+            5,
+            -30
+          ],
+          "name": "Sendagaya",
+          "labelPos": "S"
+        },
+        {
+          "coords": [
+            8,
+            -30
+          ]
+        },
+        {
+          "coords": [
+            10,
+            -28
+          ],
+          "name": "Shinanomachi",
+          "labelPos": "SE"
+        },
+        {
+          "coords": [
+            12,
+            -26
+          ],
+          "name": "Yotsuya",
+          "labelPos": "SE"
+        },
+        {
+          "coords": [
+            14,
+            -24
+          ],
+          "name": "Ichigaya",
+          "labelPos": "SE"
+        },
+        {
+          "coords": [
+            16,
+            -22
+          ],
+          "name": "Iidabashi",
+          "labelPos": "SE"
+        },
+        {
+          "coords": [
+            18,
+            -20
+          ],
+          "name": "Suidōbashi",
+          "labelPos": "SE"
+        },
+        {
+          "coords": [
+            20,
+            -19
+          ]
+        },
+        {
+          "coords": [
+            23,
+            -19
+          ],
+          "marker": "interchange",
+          "name": "OchanomizuA",
+          "labelPos": "S"
+        },
+        {
+          "coords": [
+            40,
+            -19
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chuo",
+      "label": "Chuo",
+      "color": "#ff3334",
+      "shiftCoords": [
+        0,
+        0
+      ],
+      "nodes": [
+        {
+          "coords": [
+            -10,
+            -13
+          ]
+        },
+        {
+          "coords": [
+            -2,
+            -13
+          ]
+        },
+        {
+          "coords": [
+            -2,
+            -21
+          ],
+          "marker": "interchange",
+          "name": "ShinjukuB",
+          "labelPos": "E"
+        },
+        {
+          "coords": [
+            -2,
+            -21
+          ]
+        },
+        {
+          "coords": [
+            -2,
+            -28
+          ]
+        },
+        {
+          "coords": [
+            8,
+            -28
+          ]
+        },
+        {
+          "coords": [
+            19,
+            -17
+          ]
+        },
+        {
+          "coords": [
+            24,
+            -17
+          ],
+          "marker": "interchange",
+          "name": "Ochanomizu",
+          "labelPos": "N"
+        },
+        {
+          "coords": [
+            26,
+            -17
+          ]
+        },
+        {
+          "coords": [
+            31,
+            -22
+          ]
+        },
+        {
+          "coords": [
+            31,
+            -27
+          ]
+        },
+        {
+          "coords": [
+            35,
+            -27
+          ],
+          "marker": "interchange",
+          "name": "Tokyo",
+          "labelPos": "SE"
+        },
+        {
+          "coords": [
+            46,
+            -27
+          ]
+        },
+        {
+          "coords": [
+            51,
+            -32
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Interchange",
+      "label": "None",
+      "color": "grey",
+      "shiftCoords": [
+        0,
+        0
+      ],
+      "nodes": [
+        {
+          "coords": [
+            0,
+            -25
+          ]
+        },
+        {
+          "coords": [
+            -4,
+            -25
+          ]
+        }
+      ]
+    },
     {
       "name": "Yamanote",
       "label": "Yamanote",
@@ -452,248 +705,6 @@
           ],
           "name": "Ikebukuro",
           "labelPos": "N"
-        }
-      ]
-    },
-    {
-      "name": "Sobu",
-      "label": "Sobu",
-      "color": "#ffcc66",
-      "shiftCoords": [
-        0,
-        0
-      ],
-      "nodes": [
-        {
-          "coords": [
-            -10,
-            -15
-          ]
-        },
-        {
-          "coords": [
-            -4,
-            -15
-          ]
-        },
-        {
-          "coords": [
-            -4,
-            -21
-          ],
-          "marker": "interchange",
-          "name": "ShinjukuA",
-          "labelPos": "E"
-        },
-        {
-          "coords": [
-            -4,
-            -25
-          ],
-          "marker": "interchange",
-          "name": "YoyogiA",
-          "labelPos": "E"
-        },
-        {
-          "coords": [
-            -4,
-            -30
-          ]
-        },
-        {
-          "coords": [
-            5,
-            -30
-          ],
-          "name": "Sendagaya",
-          "labelPos": "S"
-        },
-        {
-          "coords": [
-            8,
-            -30
-          ]
-        },
-        {
-          "coords": [
-            10,
-            -28
-          ],
-          "name": "Shinanomachi",
-          "labelPos": "SE"
-        },
-        {
-          "coords": [
-            12,
-            -26
-          ],
-          "name": "Yotsuya",
-          "labelPos": "SE"
-        },
-        {
-          "coords": [
-            14,
-            -24
-          ],
-          "name": "Ichigaya",
-          "labelPos": "SE"
-        },
-        {
-          "coords": [
-            16,
-            -22
-          ],
-          "name": "Iidabashi",
-          "labelPos": "SE"
-        },
-        {
-          "coords": [
-            19,
-            -19
-          ]
-        },
-        {
-          "coords": [
-            23,
-            -19
-          ],
-          "marker": "interchange",
-          "name": "Suidōbashi",
-          "labelPos": "S"
-        },
-        {
-          "coords": [
-            40,
-            -19
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Chuo",
-      "label": "Chuo",
-      "color": "#ff3334",
-      "shiftCoords": [
-        0,
-        0
-      ],
-      "nodes": [
-        {
-          "coords": [
-            -10,
-            -13
-          ]
-        },
-        {
-          "coords": [
-            -2,
-            -13
-          ]
-        },
-        {
-          "coords": [
-            -2,
-            -21
-          ],
-          "marker": "interchange",
-          "name": "ShinjukuB",
-          "labelPos": "E"
-        },
-        {
-          "coords": [
-            -2,
-            -21
-          ]
-        },
-        {
-          "coords": [
-            -2,
-            -28
-          ]
-        },
-        {
-          "coords": [
-            8,
-            -28
-          ]
-        },
-        {
-          "coords": [
-            19,
-            -17
-          ]
-        },
-        {
-          "coords": [
-            24,
-            -17
-          ],
-          "marker": "interchange",
-          "name": "Ochanomizu",
-          "labelPos": "N"
-        },
-        {
-          "coords": [
-            26,
-            -17
-          ]
-        },
-        {
-          "coords": [
-            31,
-            -22
-          ]
-        },
-        {
-          "coords": [
-            31,
-            -27
-          ]
-        },
-        {
-          "coords": [
-            35,
-            -27
-          ],
-          "marker": "interchange",
-          "hide": true,
-          "name": "Tokyo",
-          "labelPos": "SE"
-        },
-        {
-          "coords": [
-            46,
-            -27
-          ]
-        },
-        {
-          "coords": [
-            51,
-            -32
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Interchange",
-      "label": "None",
-      "color": "grey",
-      "shiftCoords": [
-        0,
-        0
-      ],
-      "nodes": [
-        {
-          "coords": [
-            0,
-            -25
-          ]
-        },
-        {
-          "coords": [
-            -4,
-            -25
-          ]
         }
       ]
     }
