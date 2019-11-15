@@ -1,85 +1,112 @@
 #!/usr/bin/python
 
 import sqlite3 # Libreria de la BDD que vamos a usar.
-import argparse # Libreria para pasar argumentos al llamar al script
-import ezodf # Libreria para leer del excel
+
+def fillMetroTokyo(file, db):
+    print("Insertando datos en la tabla: ", end="")
+
+    data = file.readlines()
+    i = 0
+
+    for line in data:
+
+        myLine = line.split()
+        origen = myLine[0]
+        destino = myLine[1]
+        distancia = myLine[2]
+        tiempo = myLine[3]
+
+        db.execute("INSERT INTO metroTokyo (ID, ORIGEN, DESTINO, DISTANCIA, TIEMPO) VALUES (?, ?, ?, ?, ?)", (i, origen, destino, distancia, tiempo)); db.commit()
+
+        i += 1
+
+    print("EXITO \n");
+
+def fillLineaVerde(file, db):
+    print("Insertando datos en la tabla: ", end="")
+
+    data = file.readlines()
+    i = 0
+
+    for line in data:
+
+        myLine = line.split()
+        origen = myLine[0]
+        destino = myLine[1]
+        distancia = myLine[2]
+
+        db.execute("INSERT INTO lineaVerde (ID, ORIGEN, DESTINO, DISTANCIA) VALUES (?, ?, ?, ?)", (i, origen, destino, distancia)); db.commit()
+
+        i += 1
+
+    print("EXITO \n");
+
+def fillRojaVerde(file, db):
+    print("Insertando datos en la tabla: ", end="")
+
+    data = file.readlines()
+    i = 0
+
+    for line in data:
+
+        myLine = line.split()
+        origen = myLine[0]
+        destino = myLine[1]
+        distancia = myLine[2]
+
+        db.execute("INSERT INTO rojaVerde (ID, ORIGEN, DESTINO, DISTANCIA) VALUES (?, ?, ?, ?)", (i, origen, destino, distancia)); db.commit()
+
+        i += 1
+
+    print("EXITO \n");
 
 # Crea una tabla exista o no. Si existe borra la que hay y crea una nueva.
-def createTable(excel, db):
-    if(excel == "MetroTokyo.ods"):
-        print("Creando la BDD del Metro de Tokyo: ", end="") # end hace que el print de abajo se imprima seguido
-        db.execute("DROP TABLE IF EXISTS metroTokyo")
-        db.execute('''CREATE TABLE metroTokyo
-                    (
-                    ID        INT    PRIMARY KEY   NOT NULL,
-                    ORIGEN    TEXT                 NOT NULL,
-                    DESTINO   TEXT                 NOT NULL,
-                    DISTANCIA INT                  NOT NULL,
-                    TIEMPO    INT                  NOT NULL
-                    ); ''')
-        print("EXITO \n \n")
+def createTable(db):
+    print("Creando la BDD del todo el Metro de Tokyo: ", end="") # end hace que el print de abajo se imprima seguido
+    db.execute("DROP TABLE IF EXISTS metroTokyo")
+    db.execute('''CREATE TABLE metroTokyo
+                (
+                ID        INT    PRIMARY KEY   NOT NULL,
+                ORIGEN    TEXT                 NOT NULL,
+                DESTINO   TEXT                 NOT NULL,
+                DISTANCIA INT                  NOT NULL,
+                TIEMPO    INT                  NOT NULL
+                ); ''')
+    print("EXITO \n")
 
-    if(excel == "LineaVerde.ods"):
-        print("Creando la BDD de la Linea Verde: ", end="") # end hace que el print de abajo se imprima seguido
-        db.execute("DROP TABLE IF EXISTS metroTokyo")
-        db.execute('''CREATE TABLE metroTokyo
-                    (
-                    ID        INT    PRIMARY KEY   NOT NULL,
-                    ORIGEN    TEXT                 NOT NULL,
-                    DESTINO   TEXT                 NOT NULL,
-                    DISTANCIA INT                  NOT NULL,
-                    ); ''')
-        print("EXITO \n \n")
+    print("Creando la BDD de la linea Verde: ", end="") # end hace que el print de abajo se imprima seguido
+    db.execute("DROP TABLE IF EXISTS lineaVerde")
+    db.execute('''CREATE TABLE lineaVerde
+                (
+                ID        INT    PRIMARY KEY   NOT NULL,
+                ORIGEN    TEXT                 NOT NULL,
+                DESTINO   TEXT                 NOT NULL,
+                DISTANCIA INT                  NOT NULL
+                ); ''')
+    print("EXITO \n")
 
-
-
-def fillTable(excel, db):
-    print("Insertando datos en la tabla: ", end="")
-    db.execute('''INSERT INTO metroTokyo
-               (ID, ORIGEN, DESTINO, DISTANCIA, TIEMPO) VALUES
-               (1, "micasa", "tucasa", 1000, 1923)
-               ''');
-    db.commit()
-    print("EXITO")
-
-def showTable(excel, db):
-    cursor = db.execute("SELECT ID, origen, destino, distancia, tiempo FROM metroTokyo");
-    for row in cursor:
-        print("ID = ", row[0])
-        print("origen = ", row[1])
-        print("destino = ", row[2])
-        print("distancia = ", row[3])
-        print("tiempo = ", row[4], "\n")
-
-def callMe(doc):
-    print("Spreadsheet contains %d sheet(s)." % len(doc.sheets))
-    for sheet in doc.sheets:
-        print("-"*40)
-        print("   Sheet name : '%s'" % sheet.name)
-        print("Size of Sheet : (rows=%d, cols=%d)" % (sheet.nrows(), sheet.ncols()) )
-
+    print("Creando la BDD de la linea Roja con la Verde: ", end="") # end hace que el print de abajo se imprima seguido
+    db.execute("DROP TABLE IF EXISTS rojaVerde")
+    db.execute('''CREATE TABLE rojaVerde
+                (
+                ID        INT    PRIMARY KEY   NOT NULL,
+                ORIGEN    TEXT                 NOT NULL,
+                DESTINO   TEXT                 NOT NULL,
+                DISTANCIA INT                  NOT NULL
+                ); ''')
+    print("EXITO \n")
 
 if __name__ == '__main__':
-
-    # Selecciona de que excel se quiere hacer la BDD
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--table', help="Selecciona la tabla que quieres crear.")
-    args = parser.parse_args()
-
-    # Esto es para mantener la estructura del excel.
-    ezodf.config.set_table_expand_strategy('all')
-    ods = ezodf.opendoc(args.table)
-
-    callMe(ods)
-
-    # args.table = "MetroFiles/MetroTokyo.ods" y pasa a ser "MetroTokyo.ods" por ejemplo.
-    args = args.table[11:]
+    print("")
 
     db = sqlite3.connect('metroDataBase.db')
+    createTable(db)
 
-    createTable(args, db)
-    fillTable(args, db)
-    showTable(args, db)
+    file = open("./MetroFiles/MetroTokyo.txt", 'r')
+    fillMetroTokyo(file, db)
+    file = open("./MetroFiles/LineaVerde.txt", 'r')
+    fillLineaVerde(file, db)
+    file = open("./MetroFiles/RojaVerde.txt", 'r')
+    fillRojaVerde(file, db)
 
     db.close()
-    ezodf.config.reset_table_expand_strategy()
