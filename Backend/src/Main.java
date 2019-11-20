@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import es.upm.aedlib.map.HashTableMap;
 
 public class Main{
-    
+
     DirectedGraph<Integer,Integer> graph = new DirectedAdjacencyListGraph <Integer,Integer> ();
     HashTableMap <Integer, Vertex<Integer>> vertices = new HashTableMap <Integer, Vertex<Integer>> ();
 
@@ -38,6 +38,9 @@ public class Main{
 	return a;
     }
 
-    public void main (String [] args){
+    public static void main (String [] args){
+        base miBase = new base();
+        String nombre = miBase.getNombreId(9);
+        System.out.println("Output :: " + nombre);
     }
 }
