@@ -62,7 +62,7 @@ def fillIds(file, db):
 
 # Crea una tabla exista o no. Si existe borra la que hay y crea una nueva.
 def createTable(db):
-    print("Creando la BDD del todo el Metro de Tokyo: ", end="") # end hace que el print de abajo se imprima seguido
+    print("Creando la tabla de los datos de los trenes: ", end="") # end hace que el print de abajo se imprima seguido
     db.execute("DROP TABLE IF EXISTS tren")
     db.execute('''CREATE TABLE tren
                 (
@@ -74,7 +74,7 @@ def createTable(db):
                 ); ''')
     print("EXITO \n")
 
-    print("Creando la BDD de la linea Verde: ", end="") # end hace que el print de abajo se imprima seguido
+    print("Creando la tabla de los datos de las lineas rectas: ", end="") # end hace que el print de abajo se imprima seguido
     db.execute("DROP TABLE IF EXISTS recta")
     db.execute('''CREATE TABLE recta
                 (
@@ -89,8 +89,8 @@ def createTable(db):
     db.execute("DROP TABLE IF EXISTS ids")
     db.execute('''CREATE TABLE ids
                 (
-                ID        INT    PRIMARY KEY   NOT NULL,
-                ORIGEN    TEXT                 NOT NULL
+                ORIGEN    TEXT                 NOT NULL,
+                ID        INT    PRIMARY KEY   NOT NULL
                 ); ''')
     print("EXITO \n")
 
