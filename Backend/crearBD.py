@@ -102,11 +102,11 @@ if __name__ == '__main__':
     db = sqlite3.connect('metroDataBase.db')
     createTable(db)
 
-    file = open("./MetroFiles/MetroTokyo.txt", 'r')
+    file = open("../MetroFiles/MetroTokyo.txt", 'r')
     fillMetroTokyo(file, db)
-    file = open("./MetroFiles/LineaVerde.txt", 'r')
+    file = open("../MetroFiles/LineaVerde.txt", 'r')
     fillLineaVerde(file, db)
-    file = open("./MetroFiles/RojaVerde.txt", 'r')
+    file = open("../MetroFiles/RojaVerde.txt", 'r')
     fillRojaVerde(file, db)
 
     db.close()
