@@ -50,10 +50,10 @@ def fillIds(file, db):
     for line in data:
 
         myLine = line.split()
-        origen = myLine[0].upper()
-        miId = myLine[1]
+        miId = myLine[0]
+        nombre = myLine[1].upper()
 
-        db.execute("INSERT INTO ids (ORIGEN, ID) VALUES (?, ?)", (origen, miId)); db.commit()
+        db.execute("INSERT INTO ids (ID, NOMBRE) VALUES (?, ?)", (miId, nombre)); db.commit()
 
         i += 1
 
@@ -89,8 +89,8 @@ def createTable(db):
     db.execute("DROP TABLE IF EXISTS ids")
     db.execute('''CREATE TABLE ids
                 (
-                ORIGEN    TEXT                 NOT NULL,
-                ID        INT    PRIMARY KEY   NOT NULL
+                ID        INT    PRIMARY KEY   NOT NULL,
+                NOMBRE    TEXT                 NOT NULL
                 ); ''')
     print("EXITO \n")
 

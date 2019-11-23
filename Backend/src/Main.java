@@ -13,19 +13,19 @@ public class Main{
 
 
     private void crearGrafo (){
-	//INSERTAR NODOS AL GRAFO
-	ArrayList<Integer> nodos = new ArrayList<Integer>();
+    //INSERTAR NODOS AL GRAFO
+    ArrayList<Integer> nodos = new ArrayList<Integer>();
 
-	for (int i = 0; i < nodos.size(); i++){
-	    vertices.put(nodos.get(i),graph.insertVertex(new Integer(nodos.get(i))));
-	}
-	//METER LOS PESOS AL GRAFO
-	for (Vertex<Integer> v : graph.vertices()) {
-	    HashMap<Integer, Integer> prox = new HashMap<Integer, Integer>();
-	    for (Integer v2 : prox.keySet()) {
-		graph.insertEdge(v, vertices.get(v2), prox.get(v2));
-	    }
-	}
+    for (int i = 0; i < nodos.size(); i++)
+        vertices.put(nodos.get(i),graph.insertVertex(new Integer(nodos.get(i))));
+
+    //METER LOS PESOS AL GRAFO
+    for (Vertex<Integer> v : graph.vertices()) {
+        HashMap<Integer, Integer> prox = new HashMap<Integer, Integer>();
+        for (Integer v2 : prox.keySet()) {
+        graph.insertEdge(v, vertices.get(v2), prox.get(v2));
+        }
+    }
     }
 
 
@@ -34,8 +34,8 @@ public class Main{
 
 
     private int[]  getPath (int from, int to) {
-	int[] a = new int[2];
-	return a;
+        int[] a = new int[2];
+        return a;
     }
 
     public static void main (String [] args){

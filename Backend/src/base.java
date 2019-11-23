@@ -1,31 +1,52 @@
 import java.sql.*;
+
 public class base{
 
+    Connection conn = null;
+
     public base(){
-        connect();
     }
 
     public String getNombreId(int id){
-        return "PUTA VIDA TT";
+        connect();
+        String name = "";
+        try{
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT " + id + " FROM ids");
+
+            name = rs.getString("ORIGEN");
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        close();
+
+        return name;
     }
 
-    public static void connect(){
-        Connection conn = null;
+    public boolean connect(){
+        boolean res = false;
         try{
             String url = "jdbc:sqlite:../metroDataBase.db";
             conn = DriverManager.getConnection(url);
-
-            System.out.println("La conexion va como dios.");
+            res = conn.isValid(300);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        } finally {
-            try {
-                if(conn != null){
-                    conn.close();
-                }
-            } catch (SQLException ex){
-                System.out.println(ex.getMessage());
+        }
+        return res;
+    }
+
+    public boolean close() {
+        boolean res = false;
+        try{
+            if(conn != null){
+                conn.close();
+                res = conn.isClosed();
             }
         }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return res;
     }
 }
