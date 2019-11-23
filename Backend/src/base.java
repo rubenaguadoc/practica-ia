@@ -14,7 +14,7 @@ public class base{
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT " + id + " FROM ids");
 
-            name = rs.getString("ORIGEN");
+            name = rs.getString("NOMBRE");
         }
         catch(Exception e){
             System.out.println(e.getMessage());
@@ -27,7 +27,7 @@ public class base{
     public boolean connect(){
         boolean res = false;
         try{
-            String url = "jdbc:sqlite:../metroDataBase.db";
+            String url = "jdbc:sqlite:/home/jorge/Documentos/AA-UNI/IA/practica-ia/Backend/metroDataBase.db";
             conn = DriverManager.getConnection(url);
             res = conn.isValid(300);
         } catch (SQLException e) {
