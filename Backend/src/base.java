@@ -82,6 +82,15 @@ public class base{
                 recta.add(rs.getInt(4));
             }
 
+            // TODO: Test para esto! Puede no funcar para nada :/
+            if(miTo.equals(""))
+                rs = st.executeQuery("SELECT * FROM recta WHERE DESTINO LIKE'" + miFrom + "'");
+            else
+                rs = st.executeQuery("SELECT * FROM recta WHERE DESTINO LIKE'" + miFrom + "' AND ORIGEN LIKE '" + miTo +"'");
+
+            while(rs.next()){
+                recta.add(rs.getInt(4));
+            }
         }
         catch(Exception e){
             System.out.println(e.getMessage());
