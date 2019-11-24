@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Metro Tokyo</title>
+  <link rel="shortcut icon" type="image/jpg" href="../img/favicon.png" />
+  <link rel="stylesheet" href="../css/index.scss">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+
+  <header class="mdc-top-app-bar app-bar" id="app-bar">
+    <div class="mdc-top-app-bar__row">
+      <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+        <a href="#" class="demo-menu material-icons mdc-top-app-bar__navigation-icon">menu</a>
+        <span class="mdc-top-app-bar__title">Metro Tokyo</span>
+      </section>
+    </div>
+  </header>
+
+  <aside class="mdc-drawer mdc-top-app-bar--fixed-adjust mdc-drawer--modal">
+    <div class="mdc-drawer__content">
+      <div class="mdc-list">
+        <a class="mdc-list-item mdc-list-item--activated"
+          href="https://moodle.upm.es/titulaciones/oficiales/pluginfile.php/2114962/mod_resource/content/1/Proyecto%20Japo%CC%81n%202019.pdf"
+          aria-current="page" target="_blank">
+          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">attachment</i>
+          <span class="mdc-list-item__text">Enunciado</span>
+        </a>
+        <a class="mdc-list-item" href="http://www.hyperdia.com/en/" target="_blank">
+          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">check_circle</i>
+          <span class="mdc-list-item__text">Fuentes</span>
+        </a>
+        <hr class="mdc-list-divider">
+        <h6 class="mdc-list-group__subheader">Miembros</h6>
+        <a class="mdc-list-item" href="https://about.me/rubenaguadoc" target="_blank">
+          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">drafts</i>
+          <span class="mdc-list-item__text">Rubén Aguado</span>
+        </a>
+        <a class="mdc-list-item" href="https://github.com/Frax7" target="_blank">
+          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">drafts</i>
+          <span class="mdc-list-item__text">Younes Aouad</span>
+        </a>
+        <a class="mdc-list-item" href="#">
+          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">drafts</i>
+          <span class="mdc-list-item__text">Paula Pousa</span>
+        </a>
+        <a class="mdc-list-item" href="https://github.com/FORGISDELUXE" target="_blank">
+          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">drafts</i>
+          <span class="mdc-list-item__text">Jorge Sol</span>
+        </a>
+        <img class="etsiinf" src="https://i.pinimg.com/originals/d1/e5/5d/d1e55d6b23bbe78684b6a6643c9d3ad7.png"
+          alt="Logo ETSIINF">
+        <img class="poli"
+          src="https://www.upm.es/sfs/Rectorado/Gabinete%20del%20Rector/Logos/UPM/CEI/LOGOTIPO%20leyenda%20color%20JPG%20p.png"
+          alt="Logo UPM">
+      </div>
+    </div>
+  </aside>
+  <div class="mdc-drawer-scrim"></div>
+
+  <main class="mdc-drawer-app-content mdc-top-app-bar--fixed-adjust">
+    <main class="main-content" id="main-content">
+
+      <div role="progressbar" class="mdc-linear-progress mdc-linear-progress--indeterminate">
+        <div class="mdc-linear-progress__buffering-dots"></div>
+        <div class="mdc-linear-progress__buffer"></div>
+        <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+          <span class="mdc-linear-progress__bar-inner"></span></div>
+        <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+          <span class="mdc-linear-progress__bar-inner"></span></div>
+      </div>
+
+      <form class="input-form">
+        <div class="form-controls">
+          <div class="input-element">
+            <div class="mdc-select mdc-select--outlined mdc-select--required">
+              <div class="mdc-select__anchor station-select">
+                <i class="mdc-select__dropdown-icon"></i>
+                <div class="mdc-select__selected-text" aria-required="true"></div>
+                <div class="mdc-notched-outline">
+                  <div class="mdc-notched-outline__leading"></div>
+                  <div class="mdc-notched-outline__notch">
+                    <label class="mdc-floating-label">Estación Origen</label>
+                  </div>
+                  <div class="mdc-notched-outline__trailing"></div>
+                </div>
+              </div>
+
+              <div class="mdc-select__menu mdc-menu mdc-menu-surface station-select">
+                <ul class="mdc-list">
+                  <li class="mdc-list-item mdc-list-item--selected" data-value="" aria-selected="true"></li>
+                  <li class="mdc-list-item" data-value="1">Ikebukuro</li>
+                  <li class="mdc-list-item" data-value="2">Mejiro</li>
+                  <li class="mdc-list-item" data-value="3">Takadanobaba</li>
+                  <li class="mdc-list-item" data-value="4">Shin-Okubo</li>
+                  <li class="mdc-list-item" data-value="5">Shinjuku(JR)</li>
+                  <li class="mdc-list-item" data-value="6">Yoyogi</li>
+                  <li class="mdc-list-item" data-value="7">Harajuku</li>
+                  <li class="mdc-list-item" data-value="8">Shibuya</li>
+                  <li class="mdc-list-item" data-value="9">Ebisu</li>
+                  <li class="mdc-list-item" data-value="10">Meguro</li>
+                  <li class="mdc-list-item" data-value="11">Gotanda</li>
+                  <li class="mdc-list-item" data-value="12">Osaki</li>
+                  <li class="mdc-list-item" data-value="13">Shinagawa</li>
+                  <li class="mdc-list-item" data-value="14">Tamachi</li>
+                  <li class="mdc-list-item" data-value="15">Hamamatsucho</li>
+                  <li class="mdc-list-item" data-value="16">Shimbashi</li>
+                  <li class="mdc-list-item" data-value="17">Yurakucho</li>
+                  <li class="mdc-list-item" data-value="18">Tokyo</li>
+                  <li class="mdc-list-item" data-value="19">Kanda</li>
+                  <li class="mdc-list-item" data-value="20">Akihabara</li>
+                  <li class="mdc-list-item" data-value="21">Okachimachi</li>
+                  <li class="mdc-list-item" data-value="22">Ueno</li>
+                  <li class="mdc-list-item" data-value="23">Uguisudani</li>
+                  <li class="mdc-list-item" data-value="24">Nippori</li>
+                  <li class="mdc-list-item" data-value="25">Nishi-Nippori</li>
+                  <li class="mdc-list-item" data-value="26">Tabata</li>
+                  <li class="mdc-list-item" data-value="27">Komagome</li>
+                  <li class="mdc-list-item" data-value="28">Sugamo</li>
+                  <li class="mdc-list-item" data-value="29">Otsuka</li>
+                  <li class="mdc-list-item" data-value="30">Sendagaya</li>
+                  <li class="mdc-list-item" data-value="31">Shinanomachi</li>
+                  <li class="mdc-list-item" data-value="32">Yotsuya</li>
+                  <li class="mdc-list-item" data-value="33">Ichigaya</li>
+                  <li class="mdc-list-item" data-value="34">Iidabashi</li>
+                  <li class="mdc-list-item" data-value="35">Suidobashi</li>
+                  <li class="mdc-list-item" data-value="36">Ochanomizu</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="input-element">
+            <div class="mdc-select mdc-select--outlined mdc-select--required">
+              <div class="mdc-select__anchor station-select">
+                <i class="mdc-select__dropdown-icon"></i>
+                <div class="mdc-select__selected-text" aria-required="true"></div>
+                <div class="mdc-notched-outline">
+                  <div class="mdc-notched-outline__leading"></div>
+                  <div class="mdc-notched-outline__notch">
+                    <label class="mdc-floating-label">Estación destino</label>
+                  </div>
+                  <div class="mdc-notched-outline__trailing"></div>
+                </div>
+              </div>
+
+              <div class="mdc-select__menu mdc-menu mdc-menu-surface station-select">
+                <ul class="mdc-list">
+                  <li class="mdc-list-item mdc-list-item--selected" data-value="" aria-selected="true"></li>
+                  <li class="mdc-list-item" data-value="1">Ikebukuro</li>
+                  <li class="mdc-list-item" data-value="2">Mejiro</li>
+                  <li class="mdc-list-item" data-value="3">Takadanobaba</li>
+                  <li class="mdc-list-item" data-value="4">Shin-Okubo</li>
+                  <li class="mdc-list-item" data-value="5">Shinjuku(JR)</li>
+                  <li class="mdc-list-item" data-value="6">Yoyogi</li>
+                  <li class="mdc-list-item" data-value="7">Harajuku</li>
+                  <li class="mdc-list-item" data-value="8">Shibuya</li>
+                  <li class="mdc-list-item" data-value="9">Ebisu</li>
+                  <li class="mdc-list-item" data-value="10">Meguro</li>
+                  <li class="mdc-list-item" data-value="11">Gotanda</li>
+                  <li class="mdc-list-item" data-value="12">Osaki</li>
+                  <li class="mdc-list-item" data-value="13">Shinagawa</li>
+                  <li class="mdc-list-item" data-value="14">Tamachi</li>
+                  <li class="mdc-list-item" data-value="15">Hamamatsucho</li>
+                  <li class="mdc-list-item" data-value="16">Shimbashi</li>
+                  <li class="mdc-list-item" data-value="17">Yurakucho</li>
+                  <li class="mdc-list-item" data-value="18">Tokyo</li>
+                  <li class="mdc-list-item" data-value="19">Kanda</li>
+                  <li class="mdc-list-item" data-value="20">Akihabara</li>
+                  <li class="mdc-list-item" data-value="21">Okachimachi</li>
+                  <li class="mdc-list-item" data-value="22">Ueno</li>
+                  <li class="mdc-list-item" data-value="23">Uguisudani</li>
+                  <li class="mdc-list-item" data-value="24">Nippori</li>
+                  <li class="mdc-list-item" data-value="25">Nishi-Nippori</li>
+                  <li class="mdc-list-item" data-value="26">Tabata</li>
+                  <li class="mdc-list-item" data-value="27">Komagome</li>
+                  <li class="mdc-list-item" data-value="28">Sugamo</li>
+                  <li class="mdc-list-item" data-value="29">Otsuka</li>
+                  <li class="mdc-list-item" data-value="30">Sendagaya</li>
+                  <li class="mdc-list-item" data-value="31">Shinanomachi</li>
+                  <li class="mdc-list-item" data-value="32">Yotsuya</li>
+                  <li class="mdc-list-item" data-value="33">Ichigaya</li>
+                  <li class="mdc-list-item" data-value="34">Iidabashi</li>
+                  <li class="mdc-list-item" data-value="35">Suidobashi</li>
+                  <li class="mdc-list-item" data-value="36">Ochanomizu</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="input-element mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon">
+            <i class="material-icons mdc-text-field__icon">access_time</i>
+            <input type="time" id="hour-outlined" class="mdc-text-field__input">
+            <div class="mdc-notched-outline">
+              <div class="mdc-notched-outline__leading"></div>
+              <div class="mdc-notched-outline__notch">
+                <label for="hour-outlined" class="mdc-floating-label">Hora de partida</label>
+              </div>
+              <div class="mdc-notched-outline__trailing"></div>
+            </div>
+          </div>
+
+          <div class="input-element mdc-form-field">
+            <div class="mdc-checkbox">
+              <input type="checkbox" class="mdc-checkbox__native-control" id="checkbox-1" />
+              <div class="mdc-checkbox__background">
+                <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                  <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
+                  </path>
+                </svg>
+                <div class="mdc-checkbox__mixedmark"></div>
+              </div>
+              <div class="mdc-checkbox__ripple"></div>
+            </div>
+            <label for="checkbox-1">Evitar transbordos</label>
+          </div>
+
+          <button class="input-element mdc-button mdc-button--raised">
+            <div class="mdc-button__ripple"></div>
+            <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
+            <span class="mdc-button__label">Calcular Ruta</span>
+          </button>
+
+        </div>
+      </form>
+
+      <div id="tube-map"></div>
+    </main>
+  </main>
+
+  <div class="mdc-snackbar">
+    <div class="mdc-snackbar__surface">
+      <div class="mdc-snackbar__label" role="status" aria-live="polite">
+        Parece que estás sin conexión
+      </div>
+      <div class="mdc-snackbar__actions">
+        <button type="button" class="retry-btn mdc-button mdc-snackbar__action">Reintentar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/index.js"></script>
+</body>
+
+</html>
