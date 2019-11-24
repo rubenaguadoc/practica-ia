@@ -40,7 +40,20 @@ public class Main{
 
     public static void main (String [] args){
         base miBase = new base();
-        String nombre = miBase.getNombreId(9);
-        System.out.println("Output :: " + nombre);
+        String nombre = miBase.getNombreId(1);
+        System.out.println("\nOutput from Main.java :: " + nombre + " :: Expected IKEBUKURO");
+
+        ArrayList<Integer> codo = miBase.getDistanciaTren(1);
+        System.out.println("\nOutput from Main.java :: " + codo.get(0) + " || " + codo.get(1) + "        :: Expected 1200 || 1800");
+        codo = miBase.getDistanciaTren(20);
+        System.out.println("Output from Main.java :: " + codo.get(0) + "  || " + codo.get(1) + " || " + codo.get(2) + " :: Expected 700  || 1000 || 900\n");
+
+        ArrayList<Integer> dist = miBase.getDistanciaRecta(1, 9);
+        System.out.println("Output from Main.java :: " + dist.get(0) + " :: Expected 9220");
+
+        dist = miBase.getDistanciaRecta(1, -1);
+        System.out.println("Output from Main.java :: " + dist.get(0) + " :: Expected 1020");
+        System.out.println("Output from Main.java :: " + dist.get(1) + " :: Expected 1980");
+        System.out.println("Output from Main.java :: " + dist.get(2) + " :: Expected 3280 \n");
     }
 }
