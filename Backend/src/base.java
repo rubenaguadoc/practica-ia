@@ -1,6 +1,23 @@
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+
+    EXPLICACION :
+
+    getDistanciaTren(int id); Pasado un ID devuelve un ArrayList<Integer> con la distancia de las 2 o 3 estaciones que rodean a la estacion ID
+
+    getDistanciaRecta(int from, int to);
+        from = id de la estacion de origen
+        to = id de la estacion de destino
+
+        >>> la variable from es siempre obligatoria, la variable to no lo es, si la variable to es positiva:
+            >>> la funcion devuelve un ArrayList<Integer> con 1 solo valor, la distancia recta de la estacion FROM a la estacion TO
+        >>> si la variable to es 0 o menor de 0
+            >>> la funcion devuelve un ArrayList<Integer> con todas las distancias rectas de FROM.
+
+*/
+
 public class base{
 
     Connection conn = null;
@@ -47,7 +64,7 @@ public class base{
     public ArrayList<Integer> getDistanciaRecta(int from, int to){
         String miFrom = getNombreId(from);
         String miTo = "";
-        if(to != -1)
+        if(to > 0)
             miTo = getNombreId(to);
 
         ArrayList<Integer> recta = new ArrayList<>();
