@@ -96,12 +96,31 @@ body {
   }
 }
 
+// Results
+.results {
+  margin: auto;
+  margin-top: 2.5vh;
+  max-width: 90vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 1s ease-in-out;
+  & > h4 {
+    flex-grow: 1;
+    align-self: center;
+    margin: 1vh 2vw;
+    font-family: Roboto, sans-serif;
+    text-align: center;
+  }
+}
+
 // Tube Map
-#tube-map {
+#tube-map,
+#result-map {
   margin: auto;
   width: 90vw;
-  height: 60vh;
-
   text {
     font-family: 'Hammersmith One', sans-serif;
     font-size: 14px;
@@ -114,8 +133,16 @@ body {
   }
 }
 
+#tube-map {
+  height: 60vh;
+}
+
+#result-map {
+  height: 15vh;
+}
+
 @media only screen and (max-width: 600px) {
   #tube-map {
-    height: 75vh;
+    height: 50vh;
   }
 }
