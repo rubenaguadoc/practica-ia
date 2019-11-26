@@ -25,6 +25,22 @@ public class base{
     public base(){
     }
 
+    public ArrayList<Integer> obtenerNodos(){
+        connect();
+        ArrayList<Integer> nodos = new ArrayList<>();
+        try{
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT ID FROM ids");
+            while(rs.next())
+                nodos.add(rs.getInt(1));
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        close();
+        return nodos;
+    }
+
     public String getNombreId(int id){
         connect();
         String name = "";
@@ -61,35 +77,22 @@ public class base{
         return codo;
     }
 
-    public ArrayList<Integer> getDistanciaRecta(int from, int to){
+    public int getDistanciaRecta(int from, int to){
         String miFrom = getNombreId(from);
-        String miTo = "";
-        if(to > 0)
-            miTo = getNombreId(to);
-
-        ArrayList<Integer> recta = new ArrayList<>();
+        String miTo = getNombreId(to);
+        int recta = 0;
 
         connect();
         try{
             Statement st = conn.createStatement();
             ResultSet rs = null;
-            if(miTo.equals(""))
-                rs = st.executeQuery("SELECT * FROM recta WHERE ORIGEN LIKE'" + miFrom + "'");
-            else
-                rs = st.executeQuery("SELECT * FROM recta WHERE ORIGEN LIKE'" + miFrom + "' AND DESTINO LIKE '" + miTo +"'");
 
-            while(rs.next()){
-                recta.add(rs.getInt(4));
-            }
-
-            // TODO: Test para esto! Puede no funcar para nada :/
-            if(miTo.equals(""))
-                rs = st.executeQuery("SELECT * FROM recta WHERE DESTINO LIKE'" + miFrom + "'");
-            else
+            rs = st.executeQuery("SELECT * FROM recta WHERE ORIGEN LIKE'" + miFrom + "' AND DESTINO LIKE '" + miTo +"'");
+            if(rs.next()){
+                recta = rs.getInt(4);
+            }else{
                 rs = st.executeQuery("SELECT * FROM recta WHERE DESTINO LIKE'" + miFrom + "' AND ORIGEN LIKE '" + miTo +"'");
-
-            while(rs.next()){
-                recta.add(rs.getInt(4));
+                recta = rs.getInt(4);
             }
         }
         catch(Exception e){
@@ -103,7 +106,7 @@ public class base{
     public boolean connect(){
         boolean res = false;
         try{
-            String url = "jdbc:sqlite:/home/jorge/Documentos/AA-UNI/IA/practica-ia/Backend/metroDataBase.db";
+            String url = "jdbc:sqlite:./metroDataBase.db";
             conn = DriverManager.getConnection(url);
             res = conn.isValid(300);
         } catch (SQLException e) {
