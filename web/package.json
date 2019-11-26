@@ -1,16 +1,27 @@
 {
   "name": "practica-ia-web",
   "version": "1.0.0",
-  "description": "",
+  "description": "Web para consulta de trayectos del metro de tokyo",
   "main": "index.js",
   "scripts": {
-    "run": "parcel -p 5000 watch src/index.html",
-    "build": "parcel build src/index.html"
+    "run": "parcel -p 5000 watch src/html/index.html",
+    "build": "rm -Rf dist && parcel build src/html/index.html",
+    "deploy": "npm run build && cp src/html/404.html dist && firebase deploy"
   },
   "keywords": [],
   "author": "Rubén Aguado Cosano",
   "license": "ISC",
   "devDependencies": {
+    "@material/button": "^4.0.0",
+    "@material/checkbox": "^4.0.0",
+    "@material/density": "^4.0.0",
+    "@material/drawer": "^4.0.0",
+    "@material/form-field": "^4.0.0",
+    "@material/linear-progress": "^4.0.0",
+    "@material/select": "^4.0.0",
+    "@material/snackbar": "^4.0.0",
+    "@material/textfield": "^4.0.0",
+    "@material/top-app-bar": "^4.0.0",
     "babel-eslint": "^10.0.3",
     "cssnano": "^4.1.10",
     "eslint": "^6.6.0",
@@ -22,11 +33,41 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-pwa-manifest": "^2.5.5",
+    "parcel-plugin-sw-cache": "^0.3.1",
     "prettier": "^1.18.2",
     "sass": "^1.23.3"
   },
   "dependencies": {
     "d3": "^5.12.0",
     "d3-tube-map": "^1.1.0"
+  },
+  "cache": {
+    "disablePlugin": false,
+    "inDev": false,
+    "strategy": "default",
+    "clearDist": true
+  },
+  "pwaManifest": {
+    "name": "Metro Tokyo",
+    "shortName": "Metro Tokyo",
+    "startURL": "/",
+    "display": "standalone",
+    "theme": "#1867b7",
+    "background_color": "#f4f4f4",
+    "orientation": "portrait",
+    "lang": "es-ES",
+    "scope": "/",
+    "version": "1.0",
+    "generateIconOptions": {
+      "baseIcon": "src/img/favicon.png",
+      "sizes": [
+        192,
+        384,
+        512
+      ],
+      "genFavicons": true
+    }
   }
 }
