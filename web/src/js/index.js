@@ -82,9 +82,12 @@ const svg = container.select('#tube-map > svg');
 
 const zoom = d3
   .zoom()
-  .scaleExtent([0.2, 2])
+  .scaleExtent([0.5, 4])
+  // .translateExtent([-100, -100], [100, 100])
   .on('zoom', () => {
-    svg.select('g').attr('transform', d3.event.transform.toString());
+    if (window.innerWidth < 700) {
+      svg.select('g').attr('transform', d3.event.transform.toString());
+    }
   });
 const zoomContainer = svg.call(zoom);
 
@@ -122,6 +125,11 @@ function triggerSearch(e) {
   const hora = document.querySelector('#hour-outlined').value || null;
   // TODO: Fetch
   console.log({ inicio, fin, hora, transbordos: checkbox.checked });
+  fetch('http://localhost:4567', {
+    method: 'POST',
+    body: JSON.stringify({ inicio, fin, hora, transbordos: checkbox.checked }),
+    headers: { 'content-type': 'application/json' },
+  });
   progress.open();
   snackbar.open();
 
