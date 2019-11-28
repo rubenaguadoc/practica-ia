@@ -36,11 +36,25 @@ public class Server {
             System.out.println(params.hora);
             System.out.println(params.transbordos);
 
-            ArrayList<Integer> result = new ArrayList<>();
-            result.add(1);
-            result.add(2);
-            result.add(3);
-            result.add(4);
+            ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+            ArrayList<Integer> stations = new ArrayList<>();
+            ArrayList<Integer> lines = new ArrayList<>();
+            stations.add(1);
+            stations.add(2);
+            stations.add(3);
+            stations.add(4);
+            stations.add(5);
+            stations.add(6);
+
+            lines.add(0); // Red
+            lines.add(0);
+            lines.add(1); // Yellow
+            lines.add(1);
+            lines.add(2); // Green
+            lines.add(2);
+
+            result.add(stations);
+            result.add(lines);
             // TODO:
 
             String jsonResponse = new GsonBuilder().create().toJson(result);
