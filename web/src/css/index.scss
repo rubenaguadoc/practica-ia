@@ -34,6 +34,7 @@ body {
 
 .main-content {
   overflow: auto;
+  margin-bottom: 2.5vh;
   height: 100%;
 }
 
@@ -137,26 +138,33 @@ body {
   height: 60vh;
 }
 
-#result-map {
-  width: 90vw;
+#result-map.result {
+  display: none;
+  margin: auto;
 }
 
 @media only screen and (max-width: 600px) {
   #tube-map {
     height: 50vh;
+    border-radius: 20px;
+    border: 1px solid black;
+    width: 80vw;
+  }
+
+  #result-map.result {
+    height: 75vh;
+    width: 80vw;
   }
 }
 
 @media only screen and (min-width: 600px) {
-  #tube-map {
+  #tube-map.result {
     display: inline-block;
     width: 65vw;
   }
 
-  #result-map {
-    display: none;
-    width: 50vw;
-    height: 33vh;
-    margin: auto;
+  #result-map.result {
+    width: 30vw;
+    height: 60vh;
   }
 }

@@ -123,68 +123,111 @@ function triggerSearch(e) {
     return;
   }
   const hora = document.querySelector('#hour-outlined').value || null;
-  // TODO: Fetch
-  console.log({ inicio, fin, hora, transbordos: checkbox.checked });
-  fetch('http://localhost:4567', {
-    method: 'POST',
-    body: JSON.stringify({ inicio, fin, hora, transbordos: checkbox.checked }),
-    headers: { 'content-type': 'application/json' },
-  });
+
+  const params = { inicio, fin, hora, transbordos: checkbox.checked };
   progress.open();
-  snackbar.open();
 
-  setTimeout(() => {
-    progress.close();
-    // TODO: Response
-    // const result = [5, 4, 3, 2, 1];
-    let initStation = Math.min(inicio, fin);
-    const result = [];
-    while (initStation <= Math.max(inicio, fin)) {
-      result.push(initStation++);
-    }
+  fetch('http://rubenaguadoc.hopto.org:4567', {
+    method: 'POST',
+    body: JSON.stringify(params),
+    headers: { 'content-type': 'application/json' },
+  })
+    .then(response => response.json())
+    .then(([result, lines]) => {
+      // let initStation = Math.min(inicio, fin);
+      // const result = [];
+      // const lines = [0, 0, 1, 1, 1];
+      // while (initStation <= Math.max(inicio, fin)) {
+      //   result.push(initStation++);
+      // }
 
-    const resultsDiv = document.querySelector('.results');
-    resultsDiv.style.visibility = 'visible';
-    resultsDiv.style.opacity = 1;
-    resultsDiv.querySelector('.stations').innerText = result.length;
-    resultsDiv.querySelector('.time').innerText = 15;
-    resultsDiv.querySelector('.trans').innerText = 1;
+      document.querySelector('#tube-map').classList.add('result');
+      const resultMap = document.querySelector('#result-map');
+      resultMap.classList.add('result');
+      if (window.innerWidth > 700) {
+        resultMap.style.display = 'inline-block';
+      } else {
+        resultMap.style.display = 'block';
+      }
+      resultMap.scrollIntoView({ behavior: 'smooth' });
 
-    const tspans = Array.from(document.querySelectorAll('tspan'));
-    tspans.forEach(el => (el.style.fontWeight = 'normal'));
+      progress.close();
 
-    result
-      .map(
-        id =>
-          Object.keys(data.stations).filter(
-            k => Number(data.stations[k].id) === id
-          )[0]
-      )
-      .forEach(name => {
-        const element = tspans.filter(el => el.innerHTML === name)[0];
-        element.style.fontWeight = 'bolder';
-      });
+      const resultsDiv = document.querySelector('.results');
+      resultsDiv.style.visibility = 'visible';
+      resultsDiv.style.opacity = 1;
+      resultsDiv.querySelector('.stations').innerText = result.length;
+      resultsDiv.querySelector('.time').innerText = 15;
+      resultsDiv.querySelector('.trans').innerText = 1;
 
-    resultUnderMap(result);
-  }, 500);
+      const tspans = Array.from(document.querySelectorAll('tspan'));
+      tspans.forEach(el => (el.style.fontWeight = 'normal'));
+
+      result
+        .map(
+          id =>
+            Object.keys(data.stations).filter(
+              k => Number(data.stations[k].id) === id
+            )[0]
+        )
+        .forEach(name => {
+          const element = tspans.filter(el => el.innerHTML === name)[0];
+          element.style.fontWeight = 'bolder';
+        });
+
+      resultUnderMap(result, lines);
+    })
+    .catch(error => {
+      console.error(error);
+      progress.close();
+      snackbar.open();
+    });
 }
 
-function resultUnderMap(result) {
+function resultUnderMap(result, resultLines) {
   const stations = Object.fromEntries(
     Object.entries(data.stations)
       .filter(([k, v]) => result.includes(v.id) && v.label)
       .map(([k, v]) => [k, { label: v.label, id: v.id }])
   );
-  const myNodes = [];
+
+  const lines = [];
+  let myNodes = [];
+  let currentLine = {
+    name: 'ResultX',
+    label: 'NoneX',
+    color: parseColor(resultLines[0]),
+    shiftCoords: [0, 0],
+    nodes: [],
+  };
   for (let i = 0; i < result.length; i++) {
-    myNodes.push({
-      coords: [i * 10, 0],
+    const node = {
+      coords: [0, i * -10],
       name: Object.entries(stations).filter(
         ([k, v]) => result[i] === v.id
       )[0][0],
-      labelPos: i % 2 === 0 ? 'N' : 'S',
-    });
+      labelPos: i % 2 === 0 ? 'W' : 'E',
+    };
+    if (resultLines[i] !== resultLines[i - 1]) {
+      node.marker = 'interchange';
+    }
+    myNodes.push(node);
+    if (resultLines[i] !== resultLines[i - 1] && i !== 0) {
+      currentLine.nodes = myNodes;
+      lines.push(currentLine);
+      myNodes = [node];
+      currentLine = {
+        name: `Result${i}`,
+        label: `None${i}`,
+        color: parseColor(resultLines[i]),
+        shiftCoords: [0, 0],
+        nodes: [],
+      };
+    }
   }
+  myNodes[myNodes.length - 1].marker = 'interchange';
+  currentLine.nodes = myNodes;
+  lines.push(currentLine);
 
   const resultContainer = d3.select('#result-map');
 
@@ -197,8 +240,8 @@ function resultUnderMap(result) {
   } catch (e) {}
   const resultMap = d3
     .tubeMap()
-    .width(600)
-    .height(100)
+    .width(100)
+    .height(50 * result.length)
     .margin({
       top: 0,
       right: 0,
@@ -209,33 +252,33 @@ function resultUnderMap(result) {
   resultContainer
     .datum({
       stations,
-      lines: [
-        {
-          name: 'Result',
-          label: 'None',
-          color: 'blue',
-          shiftCoords: [0, 0],
-          nodes: myNodes,
-        },
-      ],
+      lines,
     })
     .call(resultMap);
   const resultSvg = resultContainer.select('#result-map > svg');
 
   const zoom = d3
     .zoom()
-    .scaleExtent([0.2, 2])
+    .scaleExtent([1, result.length])
     .on('zoom', () => {
-      resultSvg.select('g').attr('transform', d3.event.transform.toString());
+      const offset = document.querySelector('#result-map').clientWidth / 2;
+      resultSvg
+        .select('g')
+        .attr(
+          'transform',
+          `translate(${offset}, ${d3.event.transform.y})scale(${d3.event.transform.k})`
+        );
     });
   const zoomContainer = resultSvg.call(zoom);
 
   setTimeout(() => {
-    const w = resultSvg.property('width').baseVal.value;
-    const h = resultSvg.property('height').baseVal.value;
-    const initialScale = (h / 350) * (result.length / 5);
-    console.log(w, h, initialScale);
-    zoom.scaleTo(zoomContainer, initialScale);
-    zoom.translateTo(zoomContainer, w / 2, 0);
+    zoom.scaleTo(zoomContainer, Math.min(result.length, 5));
+    zoom.translateTo(zoomContainer, 0, 0);
   }, 200);
+}
+
+function parseColor(id) {
+  if (id === 0) return '#669934';
+  if (id === 1) return '#ffcc66';
+  if (id === 2) return '#ff3334';
 }
