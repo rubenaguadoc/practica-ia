@@ -1,24 +1,29 @@
 #!/usr/bin/python
 
 import sqlite3 # Libreria de la BDD que vamos a usar.
+import os
 
 def fillMetroTokyo(file, db):
     print("Insertando distancias reales (el camino que hace el tren): ", end="")
 
     data = file.readlines()
-    i = 0
+    cursor = db.cursor()
 
     for line in data:
-
         myLine = line.split()
-        origen = myLine[0]
-        destino = myLine[1]
+        cursor.execute("SELECT ID FROM ids WHERE NOMBRE='" + myLine[0] + "'");
+        for i in cursor:
+            origen = i[0]
+            break # por si aca que no se como va esto :3
+        cursor.execute("SELECT ID FROM ids WHERE NOMBRE='" + myLine[1] + "'");
+        for i in cursor:
+            destino = i[0]
+            break # por si aca que no se como va esto :3
+
         distancia = myLine[2]
         tiempo = myLine[3]
 
-        db.execute("INSERT INTO tren (ID, ORIGEN, DESTINO, DISTANCIA, TIEMPO) VALUES (?, ?, ?, ?, ?)", (i, origen, destino, distancia, tiempo)); db.commit()
-
-        i += 1
+        db.execute("INSERT INTO tren (ORIGEN, DESTINO, DISTANCIA, TIEMPO) VALUES (?, ?, ?, ?)", (origen, destino, distancia, tiempo)); db.commit()
 
     print("EXITO \n");
 
@@ -26,18 +31,22 @@ def fillLineaVerde(file, db):
     print("Insertando distancias en linea recta (osea, las que son 1001 conexiones): ", end="")
 
     data = file.readlines()
-    i = 0
+    cursor = db.cursor()
 
     for line in data:
 
         myLine = line.split()
-        origen = myLine[0]
-        destino = myLine[1]
+        cursor.execute("SELECT ID FROM ids WHERE NOMBRE='" + myLine[0] + "'");
+        for i in cursor:
+            origen = i[0]
+            break # por si aca que no se como va esto :3
+        cursor.execute("SELECT ID FROM ids WHERE NOMBRE='" + myLine[1] + "'");
+        for i in cursor:
+            destino = i[0]
+            break # por si aca que no se como va esto :3
         distancia = myLine[2]
 
-        db.execute("INSERT INTO recta (ID, ORIGEN, DESTINO, DISTANCIA) VALUES (?, ?, ?, ?)", (i, origen, destino, distancia)); db.commit()
-
-        i += 1
+        db.execute("INSERT INTO recta (ORIGEN, DESTINO, DISTANCIA) VALUES (?, ?, ?)", (origen, destino, distancia)); db.commit()
 
     print("EXITO \n");
 
@@ -52,8 +61,9 @@ def fillIds(file, db):
         myLine = line.split()
         miId = myLine[0]
         nombre = myLine[1].upper()
+        linea = myLine[2]
 
-        db.execute("INSERT INTO ids (ID, NOMBRE) VALUES (?, ?)", (miId, nombre)); db.commit()
+        db.execute("INSERT INTO ids (ID, NOMBRE, LINEA) VALUES (?, ?, ?)", (miId, nombre, linea)); db.commit()
 
         i += 1
 
@@ -66,9 +76,8 @@ def createTable(db):
     db.execute("DROP TABLE IF EXISTS tren")
     db.execute('''CREATE TABLE tren
                 (
-                ID        INT    PRIMARY KEY   NOT NULL,
-                ORIGEN    TEXT                 NOT NULL,
-                DESTINO   TEXT                 NOT NULL,
+                ORIGEN    INT                  NOT NULL,
+                DESTINO   INT                  NOT NULL,
                 DISTANCIA INT                  NOT NULL,
                 TIEMPO    INT                  NOT NULL
                 ); ''')
@@ -78,9 +87,8 @@ def createTable(db):
     db.execute("DROP TABLE IF EXISTS recta")
     db.execute('''CREATE TABLE recta
                 (
-                ID        INT    PRIMARY KEY   NOT NULL,
-                ORIGEN    TEXT                 NOT NULL,
-                DESTINO   TEXT                 NOT NULL,
+                ORIGEN    INT                  NOT NULL,
+                DESTINO   INT                  NOT NULL,
                 DISTANCIA INT                  NOT NULL
                 ); ''')
     print("EXITO \n")
@@ -90,21 +98,26 @@ def createTable(db):
     db.execute('''CREATE TABLE ids
                 (
                 ID        INT    PRIMARY KEY   NOT NULL,
-                NOMBRE    TEXT                 NOT NULL
+                NOMBRE    TEXT                 NOT NULL,
+                LINEA     INT                  NOT NULL
                 ); ''')
     print("EXITO \n")
 
 if __name__ == '__main__':
     print("")
 
+    try:
+        os.remove("./metroDataBase.db")
+    except Exception:
+        pass
     db = sqlite3.connect('metroDataBase.db')
     createTable(db)
 
+    file = open("../MetroFiles/ids.txt", 'r')
+    fillIds(file, db)
     file = open("../MetroFiles/tren.txt", 'r')
     fillMetroTokyo(file, db)
     file = open("../MetroFiles/recta.txt", 'r')
     fillLineaVerde(file, db)
-    file = open("../MetroFiles/ids.txt", 'r')
-    fillIds(file, db)
 
     db.close()

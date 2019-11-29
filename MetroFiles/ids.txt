@@ -1,36 +1,36 @@
-1 Ikebukuro
-2 Mejiro
-3 Takadanobaba
-4 Shin-Okubo
-5 Shinjuku(JR)
-6 Yoyogi
-7 Harajuku
-8 Shibuya
-9 Ebisu
-10 Meguro
-11 Gotanda
-12 Osaki
-13 Shinagawa
-14 Tamachi
-15 Hamamatsucho
-16 Shimbashi
-17 Yurakucho
-18 Tokyo
-19 Kanda
-20 Akihabara
-21 Okachimachi
-22 Ueno
-23 Uguisudani
-24 Nippori
-25 Nishi-Nippori
-26 Tabata
-27 Komagome
-28 Sugamo
-29 Otsuka
-30 Sendagaya
-31 Shinanomachi
-32 Yotsuya
-33 Ichigaya
-34 Iidabashi
-35 Suidobashi
-36 Ochanomizu
+1 Ikebukuro 1
+2 Mejiro 1
+3 Takadanobaba 1
+4 Shin-Okubo 1
+5 Shinjuku(JR) 4
+6 Yoyogi 5
+7 Harajuku 1
+8 Shibuya 1
+9 Ebisu 1
+10 Meguro 1
+11 Gotanda 1
+12 Osaki 1
+13 Shinagawa 1
+14 Tamachi 1
+15 Hamamatsucho 1
+16 Shimbashi 1
+17 Yurakucho 1
+18 Tokyo 1
+19 Kanda 1
+20 Akihabara 5
+21 Okachimachi 1
+22 Ueno 1
+23 Uguisudani 1
+24 Nippori 1
+25 Nishi-Nippori 1
+26 Tabata 1
+27 Komagome 1
+28 Sugamo 1
+29 Otsuka 1
+30 Sendagaya 2
+31 Shinanomachi 2
+32 Yotsuya 2
+33 Ichigaya 2
+34 Iidabashi 2
+35 Suidobashi 2
+36 Ochanomizu 6

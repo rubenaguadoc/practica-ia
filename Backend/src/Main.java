@@ -35,26 +35,15 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        base miBase = new base();
-        String nombre = miBase.getNombreId(1);
-        System.out.println("\nOutput from Main.java :: " + nombre + " :: Expected IKEBUKURO");
-
-        ArrayList<Integer> nodos = miBase.obtenerNodos();
-        System.out.println("Output from Main.java :: " + nodos.get(0) + " :: Expected 1");
-        System.out.println("Output from Main.java :: " + nodos.get(3) + " :: Expected 4");
-        System.out.println("Output from Main.java :: " + nodos.get(35) + " :: Expected 36");
-
-        ArrayList<Integer> codo = miBase.getDistanciaTren(1);
-        System.out.println(
-                "Output from Main.java :: " + codo.get(0) + " || " + codo.get(1) + "        :: Expected 1200 || 1800");
-        codo = miBase.getDistanciaTren(20);
-        System.out.println("Output from Main.java :: " + codo.get(0) + "  || " + codo.get(1) + " || " + codo.get(2)
-                + " :: Expected 700  || 1000 || 900");
-
-        int dist = miBase.getDistanciaRecta(1, 9);
-        System.out.println("Output from Main.java :: " + dist + " :: Expected 9220");
-
-        dist = miBase.getDistanciaRecta(1, 12);
-        System.out.println("Output from Main.java :: " + dist + " :: Expected 12300\n");
+        /*
+         * EXPLIACION DE LAS LINEAS:
+         *  ROJA = 1
+         *  AMARILLA = 2
+         *  VERDE = 3
+         *  ROJA-VERDE-AMARILLA = 4
+         *  AMARILLA-VERDE = 5
+         *  AMARILLA-ROJA = 6
+         *  ROJA-VERDE = 7
+         */
     }
 }
