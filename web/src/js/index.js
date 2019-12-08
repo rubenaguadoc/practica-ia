@@ -127,13 +127,13 @@ function triggerSearch(e) {
   const params = { inicio, fin, hora, transbordos: checkbox.checked };
   progress.open();
 
-  fetch('http://rubenaguadoc.hopto.org:4567', {
+  fetch('http://localhost:4567', {
     method: 'POST',
     body: JSON.stringify(params),
     headers: { 'content-type': 'application/json' },
   })
     .then(response => response.json())
-    .then(([result, lines]) => {
+    .then(({result, lines}) => {
       // let initStation = Math.min(inicio, fin);
       // const result = [];
       // const lines = [0, 0, 1, 1, 1];

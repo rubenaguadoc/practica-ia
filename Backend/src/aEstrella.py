@@ -3,6 +3,7 @@ import metro
 def algoritmo(inicio, fin, trasbordo):
     if(inicio == fin):
         return [inicio]
+
     abiertos = []
     cerrados = []
     cerrados.append(inicio)
