@@ -1,7 +1,7 @@
 import metro
 
 def algoritmo(inicio, fin):
-    abiertos = [] # Lista de vecinos activos.
+    abiertos = []
     cerrados = []
     cerrados.append(inicio)
 
@@ -15,17 +15,20 @@ def algoritmo(inicio, fin):
         nodo = 0 # nodo siguiente al que nos movemos
 
         for i in vecinos:
-            if(i not in abiertos):
+            if(i not in abiertos and i not in cerrados):
                 abiertos.append(i) # Añadimos vecinos a abiertos
             else:
                 vecinos[i] = -1
 
         for i in vecinos:
-            if(i != -1):
-                aux = acumulador + vecinos[i] + metro.getDistanciaRecta(cerrados[len(cerrados) - 1],fin)
+            if(vecinos[i] != -1 and i != fin):
+                aux = acumulador + vecinos[i] + metro.getDistanciaRecta(i,fin)
                 if(f > aux):
                     nodo = i
                     f = aux
+            elif(i == fin):
+                nodo = i
+                break
 
         acumulador += vecinos[nodo]
 
@@ -42,7 +45,16 @@ def algoritmo(inicio, fin):
 
 
 def main():
-    path = algoritmo(1, 36) # Expected: [1, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 36]
-    print(path)
+    path = algoritmo(1, 36) # Ikebukuro -> Ochanomizu
+    print("Solucion ::", path, end=" ")
+    print(path == [1, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 36])
+
+    path = algoritmo(7, 20) # Harajuko -> Akihabara
+    print("Solucion ::", path, end=" ")
+    print(path == [7, 6, 30, 31, 32, 33, 34, 35, 36, 20])
+
+    path = algoritmo(32, 18)
+    print("Solucion ::", path, end=" ")
+    print(path == [32, 33, 34, 35, 36, 18])
 
 main()

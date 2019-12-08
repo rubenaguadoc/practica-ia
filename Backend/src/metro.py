@@ -33,5 +33,4 @@ def getDistanciaRecta(start, end):
         cursor.execute("SELECT DISTANCIA FROM recta WHERE DESTINO = ? AND ORIGEN = ?", (start, end))
         resultado = cursor.fetchall()
 
-    return resultado[0][0] # Esto parece raro, pero es como sqlite3 devuelve los datos en la funcion fetchall()
-
+    return resultado[0][0]
