@@ -1,6 +1,6 @@
 import metro
 
-def algoritmo(inicio, fin):
+def algoritmo(inicio, fin, evitarTransbordos):
     abiertos = []
     cerrados = []
     cerrados.append(inicio)
@@ -41,20 +41,3 @@ def algoritmo(inicio, fin):
                 abiertos.remove(nodo)
 
     return cerrados
-
-
-
-def main():
-    path = algoritmo(1, 36) # Ikebukuro -> Ochanomizu
-    print("Solucion ::", path, end=" ")
-    print(path == [1, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 36])
-
-    path = algoritmo(7, 20) # Harajuko -> Akihabara
-    print("Solucion ::", path, end=" ")
-    print(path == [7, 6, 30, 31, 32, 33, 34, 35, 36, 20])
-
-    path = algoritmo(32, 18)
-    print("Solucion ::", path, end=" ")
-    print(path == [32, 33, 34, 35, 36, 18])
-
-main()
