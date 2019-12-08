@@ -19,6 +19,7 @@ def getDistanciaTren(nodo):
 
     return diccio
 
+
 # Devuelve la distancia en linea recta entre dos estaciones.
 # Devuelve un entero.
 def getDistanciaRecta(start, end):
@@ -32,5 +33,25 @@ def getDistanciaRecta(start, end):
     if(resultado == []):
         cursor.execute("SELECT DISTANCIA FROM recta WHERE DESTINO = ? AND ORIGEN = ?", (start, end))
         resultado = cursor.fetchall()
+
+    return resultado[0][0]
+
+
+# Devuelve la linea a la que pertenece una estacion.
+# Devuelve un entero.
+#  EXPLIACION DE LAS LINEAS:
+#    ROJA = 1
+#    AMARILLA = 2
+#    VERDE = 3
+#    ROJA-VERDE-AMARILLA = 4
+#    AMARILLA-VERDE = 5
+#    AMARILLA-ROJA = 6
+#    ROJA-VERDE = 7
+def getLinea(nodo):
+    db = sqlite3.connect('../metroDataBase.db')
+    cursor = db.cursor()
+
+    cursor.execute("SELECT LINEA FROM ids WHERE ID = ?", (nodo,))
+    resultado = cursor.fetchall()
 
     return resultado[0][0]

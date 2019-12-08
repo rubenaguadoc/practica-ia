@@ -1,9 +1,14 @@
 import metro
 
-def algoritmo(inicio, fin):
+def algoritmo(inicio, fin, trasbordo):
+    if(inicio == fin):
+        return [inicio]
     abiertos = []
     cerrados = []
     cerrados.append(inicio)
+
+    if(trasbordo): # Trasbordo TRUE = Hay que evitar trasbordos
+        lineaDios = metro.getLinea(inicio)
 
     terminado = False
     acumulador = 0
@@ -15,7 +20,9 @@ def algoritmo(inicio, fin):
         nodo = 0 # nodo siguiente al que nos movemos
 
         for i in vecinos:
-            if(i not in abiertos and i not in cerrados):
+            if(trasbordo and i not in abiertos and i not in cerrados and metro.getLinea(i) == lineaDios):
+                abiertos.append(i) # Añadimos vecinos a abiertos
+            elif(not trasbordo and i not in abiertos and i not in cerrados):
                 abiertos.append(i) # Añadimos vecinos a abiertos
             else:
                 vecinos[i] = -1
@@ -40,21 +47,38 @@ def algoritmo(inicio, fin):
                 cerrados.append(nodo)
                 abiertos.remove(nodo)
 
-    return cerrados
+    linea = []
+    for i in cerrados:
+        linea.append(metro.getLinea(i))
+
+    return cerrados, linea
 
 
 
 def main():
-    path = algoritmo(1, 36) # Ikebukuro -> Ochanomizu
+    print("NO EVITAR TRASBORDOS")
+    path, linea = algoritmo(1, 36, False) # Ikebukuro -> Ochanomizu
     print("Solucion ::", path, end=" ")
     print(path == [1, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 36])
 
-    path = algoritmo(7, 20) # Harajuko -> Akihabara
+    print("\nEVITAR TRASBORDOS")
+    path, linea = algoritmo(7, 20, True) # Harajuko -> Akihabara
     print("Solucion ::", path, end=" ")
-    print(path == [7, 6, 30, 31, 32, 33, 34, 35, 36, 20])
+    print(path == [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])
 
-    path = algoritmo(32, 18)
+    print("\nNO EVITAR TRASBORDOS")
+    path, linea = algoritmo(32, 18, False) # Yotsuya -> Tokyo
     print("Solucion ::", path, end=" ")
     print(path == [32, 33, 34, 35, 36, 18])
+
+    print("\nNO EVITAR TRASBORDOS")
+    path, linea = algoritmo(5, 18, False) # Shinjuku -> Tokyo
+    print("Solucion ::", path, end=" ")
+    print(path == [5, 6, 30, 31, 32, 33, 34, 35, 36, 18])
+
+    print("\nEVITAR TRASBORDOS")
+    path, linea = algoritmo(5, 18, True) # Shinjuku -> Tokyo
+    print("Solucion ::", path, end=" ")
+    print(path == [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18])
 
 main()
