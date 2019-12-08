@@ -21,9 +21,9 @@ def algoritmo(inicio, fin, trasbordo):
         nodo = 0 # nodo siguiente al que nos movemos
 
         for i in vecinos:
-            if(trasbordo and i not in abiertos and i not in cerrados and metro.getLinea(i) == lineaDios):
+            if(trasbordo and i not in cerrados and metro.getLinea(i) == lineaDios):
                 abiertos.append(i) # Añadimos vecinos a abiertos
-            elif(not trasbordo and i not in abiertos and i not in cerrados):
+            elif(not trasbordo and i not in cerrados):
                 abiertos.append(i) # Añadimos vecinos a abiertos
             else:
                 vecinos[i] = -1
