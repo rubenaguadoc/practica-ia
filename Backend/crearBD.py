@@ -107,10 +107,10 @@ if __name__ == '__main__':
     print("")
 
     try:
-        os.remove("./metroDataBase.db")
+        os.remove("./src/metroDataBase.db")
     except Exception:
         pass
-    db = sqlite3.connect('metroDataBase.db')
+    db = sqlite3.connect('src/metroDataBase.db')
     createTable(db)
 
     file = open("../MetroFiles/ids.txt", 'r')

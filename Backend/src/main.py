@@ -15,10 +15,10 @@ class Stations(Resource):
     parser.add_argument("transbordos")
     args = parser.parse_args()
 
-    result = aStar(int(args["inicio"]), int(args["fin"]), bool(args["transbordos"]));
+    result, lines = aStar(int(args["inicio"]), int(args["fin"]), bool(args["transbordos"]));
     return {
       "result": result,
-      "lines": [1] * len(result) 
+      "lines": lines 
     }
 
 api.add_resource(Stations, "/")

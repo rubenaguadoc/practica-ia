@@ -1,0 +1,2 @@
+zip upload.zip lambda_function.py src/metroDataBase.db  src/aEstrella.py src/metro.py
+aws --profile personal lambda update-function-code --function-name arn:aws:lambda:eu-west-3:619878177039:function:tokyoAEstrella --zip-file fileb://upload.zip

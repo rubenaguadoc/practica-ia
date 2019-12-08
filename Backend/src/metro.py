@@ -3,7 +3,7 @@ import sqlite3 # Libreria de la BDD que vamos a usar.
 # Devuelve la distancia con los vecinos de la estacion.
 # Devuelve un diccionario <nodo, distancia>.
 def getDistanciaTren(nodo):
-    db = sqlite3.connect('../metroDataBase.db')
+    db = sqlite3.connect('metroDataBase.db')
     diccio = {}
     cursor = db.cursor()
 
@@ -23,7 +23,7 @@ def getDistanciaTren(nodo):
 # Devuelve la distancia en linea recta entre dos estaciones.
 # Devuelve un entero.
 def getDistanciaRecta(start, end):
-    db = sqlite3.connect('../metroDataBase.db')
+    db = sqlite3.connect('metroDataBase.db')
     resultado = -1
     cursor = db.cursor()
 
@@ -48,7 +48,7 @@ def getDistanciaRecta(start, end):
 #    AMARILLA-ROJA = 6
 #    ROJA-VERDE = 7
 def getLinea(nodo):
-    db = sqlite3.connect('../metroDataBase.db')
+    db = sqlite3.connect('metroDataBase.db')
     cursor = db.cursor()
 
     cursor.execute("SELECT LINEA FROM ids WHERE ID = ?", (nodo,))

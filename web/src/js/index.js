@@ -127,7 +127,9 @@ function triggerSearch(e) {
   const params = { inicio, fin, hora, transbordos: checkbox.checked };
   progress.open();
 
-  fetch('http://localhost:4567', {
+  const endpoint = window.location.hostname.includes('localhost') ? 'http://localhost:4567' : 'https://tgt1qa590k.execute-api.eu-west-3.amazonaws.com/default/tokyoAEstrella';
+
+  fetch(endpoint, {
     method: 'POST',
     body: JSON.stringify(params),
     headers: { 'content-type': 'application/json' },
