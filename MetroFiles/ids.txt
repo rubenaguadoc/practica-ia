@@ -2,7 +2,7 @@
 2 Mejiro 1
 3 Takadanobaba 1
 4 Shin-Okubo 1
-5 Shinjuku(JR) 4
+5 Shinjuku 4
 6 Yoyogi 5
 7 Harajuku 1
 8 Shibuya 1
