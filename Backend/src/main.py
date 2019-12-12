@@ -15,7 +15,7 @@ class Stations(Resource):
     parser.add_argument("transbordos")
     args = parser.parse_args()
 
-    result, lines = aStar(int(args["inicio"]), int(args["fin"]), bool(args["transbordos"]));
+    result, lines = aStar(int(args["inicio"]), int(args["fin"]), args["transbordos"] == "True")
     return {
       "result": result,
       "lines": lines 
