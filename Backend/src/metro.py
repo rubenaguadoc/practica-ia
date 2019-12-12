@@ -40,9 +40,9 @@ def getDistanciaRecta(start, end):
 # Devuelve la linea a la que pertenece una estacion.
 # Devuelve un entero.
 #  EXPLIACION DE LAS LINEAS:
-#    ROJA = 1
+#    VERDE = 1
 #    AMARILLA = 2
-#    VERDE = 3
+#    ROJA = 3
 #    ROJA-VERDE-AMARILLA = 4
 #    AMARILLA-VERDE = 5
 #    AMARILLA-ROJA = 6
