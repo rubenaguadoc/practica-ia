@@ -1,15 +1,23 @@
 import metro
 
+def magia(num):
+    if(num == 4):
+        return {1, 2, 3} 
+    elif(num == 5):
+        return {1, 2}
+    elif(num == 6):
+        return {2, 3}
+    elif(num == 7):
+        return {1, 3}
+    else:
+        return {num}
+
 def algoritmo(inicio, fin, trasbordo):
     if(inicio == fin):
         return [inicio]
 
-    abiertos = []
     cerrados = []
     cerrados.append(inicio)
-
-    if(trasbordo): # Trasbordo TRUE = Hay que evitar trasbordos
-        lineaDios = metro.getLinea(inicio)
 
     terminado = False
     acumulador = 0
@@ -21,11 +29,7 @@ def algoritmo(inicio, fin, trasbordo):
         nodo = 0 # nodo siguiente al que nos movemos
 
         for i in vecinos:
-            if(trasbordo and i not in cerrados and metro.getLinea(i) == lineaDios):
-                abiertos.append(i) # Añadimos vecinos a abiertos
-            elif(not trasbordo and i not in cerrados):
-                abiertos.append(i) # Añadimos vecinos a abiertos
-            else:
+            if(i in cerrados):
                 vecinos[i] = -1
 
         for i in vecinos:
@@ -46,10 +50,16 @@ def algoritmo(inicio, fin, trasbordo):
         else:
             if(nodo != inicio):
                 cerrados.append(nodo)
-                abiertos.remove(nodo)
 
     linea = []
     for i in cerrados:
         linea.append(metro.getLinea(i))
 
     return cerrados, linea
+
+def main():
+    res = algoritmo(1, 36, False)
+    for i in res:
+        print(i, end = " ")
+
+main()
