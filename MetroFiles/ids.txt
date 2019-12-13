@@ -30,7 +30,7 @@
 30 Sendagaya 2
 31 Shinanomachi 2
 32 Yotsuya 2
-33 Ichigaya 2
+33 Iichigaya 2
 34 Iidabashi 2
 35 Suidobashi 2
 36 Ochanomizu 6

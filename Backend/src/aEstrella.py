@@ -116,3 +116,12 @@ def algoritmo(inicio, fin, transbordo):
 
     result = list(reversed(pathList))
     return result, lineasMetro(result)
+
+def main():
+
+    res = algoritmo(36, 2, False)
+
+    for i, color in res:
+        print("(", i, ") color", color, end=" ")
+
+# main()
