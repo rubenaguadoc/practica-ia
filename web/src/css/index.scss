@@ -50,6 +50,10 @@ body {
   text-decoration: none;
 }
 
+#main-content > .mdc-linear-progress {
+  position: fixed;
+}
+
 .poli {
   width: 100%;
   position: absolute;

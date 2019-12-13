@@ -9,6 +9,7 @@ import { MDCSnackbar } from '@material/snackbar';
 import { MDCTextField } from '@material/textfield';
 import { MDCTextFieldIcon } from '@material/textfield/icon';
 import { MDCTopAppBar } from '@material/top-app-bar';
+// import 'babel-polyfill';
 
 if ('serviceWorker' in navigator) {
   const swName = '../sw.js';
@@ -124,28 +125,32 @@ function triggerSearch(e) {
   }
   const hora = document.querySelector('#hour-outlined').value || null;
 
-  const params = { inicio, fin, hora, transbordos: checkbox.checked };
   progress.open();
 
-  const endpoint = window.location.hostname.includes('localhost') ? 'http://localhost:4567' : 'https://tgt1qa590k.execute-api.eu-west-3.amazonaws.com/default/tokyoAEstrella';
+  fetchAndPaint({ inicio, fin, hora, transbordos: checkbox.checked });
+}
 
+function fetchAndPaint(params) {
+  const endpoint = window.location.hostname.includes('localhost')
+    ? 'http://localhost:4567'
+    : 'https://tgt1qa590k.execute-api.eu-west-3.amazonaws.com/default/tokyoAEstrella';
   fetch(endpoint, {
     method: 'POST',
     body: JSON.stringify(params),
     headers: { 'content-type': 'application/json' },
   })
     .then(response => response.json())
-    .then(({result, lines}) => {
+    .then(({ result, lines, weight }) => {
       lines = lines.map(l => l - 1);
-      try {
-        if (lines[lines.length - 1] !== lines[lines.length - 2]) lines[lines.length - 1] = lines[lines.length - 2]
-      }catch {}
-      // let initStation = Math.min(inicio, fin);
-      // const result = [];
-      // const lines = [0, 0, 1, 1, 1];
-      // while (initStation <= Math.max(inicio, fin)) {
-      //   result.push(initStation++);
-      // }
+      let trans = 0;
+      for (let i = 1; i < lines.length; i++)
+        if (lines[i] !== lines[i - 1]) trans++;
+
+      if (
+        lines.length >= 3 &&
+        lines[lines.length - 1] !== lines[lines.length - 2]
+      )
+        lines[lines.length - 1] = lines[lines.length - 2];
 
       document.querySelector('#tube-map').classList.add('result');
       const resultMap = document.querySelector('#result-map');
@@ -163,8 +168,12 @@ function triggerSearch(e) {
       resultsDiv.style.visibility = 'visible';
       resultsDiv.style.opacity = 1;
       resultsDiv.querySelector('.stations').innerText = result.length;
-      resultsDiv.querySelector('.time').innerText = 15;
-      resultsDiv.querySelector('.trans').innerText = 1;
+      resultsDiv.querySelector('.time').innerText = (
+        (weight / 40000) *
+        60 *
+        parseTime(params.hora)
+      ).toFixed(1);
+      resultsDiv.querySelector('.trans').innerText = trans;
 
       const tspans = Array.from(document.querySelectorAll('tspan'));
       tspans.forEach(el => (el.style.fontWeight = 'normal'));
@@ -288,3 +297,28 @@ function parseColor(id) {
   if (id === 1) return '#ffcc66';
   if (id === 2) return '#ff3334';
 }
+
+function parseTime(hour) {
+  if (!hour) return 1;
+  hour = Number(hour.substr(0, 2)) + Number(hour.substr(3, 2)) / 60;
+  if (hour >= 0 && hour < 5) return 1.25;
+  if (hour >= 5 && hour < 6) return 1.15;
+  if (hour >= 6 && hour < 8) return 1;
+  if (hour >= 8 && hour < 12) return 1.15;
+  if (hour >= 12 && hour < 16) return 0.85;
+  if (hour >= 16 && hour < 22) return 0.75;
+  if (hour >= 22 && hour <= 24) return 1.15;
+}
+
+async function test() {
+  for (let i = 1; i <= 36; i++) {
+    for (let j = 1; j <= 36; j++) {
+      fetchAndPaint({ inicio: i, fin: j, hora: null, transbordos: false });
+      await new Promise(resolve => setTimeout(resolve, 1000)); // 1 segundos
+      fetchAndPaint({ inicio: i, fin: j, hora: null, transbordos: true });
+      await new Promise(resolve => setTimeout(resolve, 1000)); // 1 segundos
+    }
+  }
+}
+
+// test();

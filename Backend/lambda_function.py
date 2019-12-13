@@ -16,7 +16,7 @@ def lambda_handler(event, context):
         }
     
     data = json.loads(event["body"])
-    result, lines = aStar(int(data["inicio"]), int(data["fin"]), bool(data["transbordos"]))
+    result, lines, weight = aStar(int(data["inicio"]), int(data["fin"]), bool(data["transbordos"]))
 
     return {
         'statusCode': 200,
@@ -26,7 +26,8 @@ def lambda_handler(event, context):
         'body': json.dumps(
             {
                 "result": result,
-                "lines": lines
+                "lines": lines,
+                "weight": weight
             }
         )
     }
