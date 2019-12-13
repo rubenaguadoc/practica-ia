@@ -1,8 +1,9 @@
 import metro
 
-def decoder(num):
+
+def decodeLineNumber(num):
     if(num == 4):
-        return [1, 2, 3] 
+        return [1, 2, 3]
     elif(num == 5):
         return [1, 2]
     elif(num == 6):
@@ -12,119 +13,112 @@ def decoder(num):
     else:
         return [num]
 
+
 def lineasMetro(lista):
 
     colores = []
 
     for i in range(0, len(lista)):
-        miColor = decoder(metro.getLinea(lista[i]))
+        miColor = decodeLineNumber(metro.getLinea(lista[i]))
         if(len(miColor) > 1):
             # Miro a la siguiente estación si existe.
             if(i+1 < len(lista)):
-                siguienteColor = decoder(metro.getLinea(lista[i+1]))
-                coloresGanadores = list(filter(lambda x  : x in siguienteColor, miColor))
+                siguienteColor = decodeLineNumber(metro.getLinea(lista[i+1]))
+                coloresGanadores = list(
+                    filter(lambda x: x in siguienteColor, miColor))
                 print("Colores ganadores:", coloresGanadores)
 
                 # Si hay mas de un color ganador, miro mi anterior (si lo hay)
                 if(i-1 >= 0 and len(coloresGanadores) > 1):
-                    anteriorColor = decoder(metro.getLinea(lista[i-1]))
-                    coloresEmergencia = list(filter(lambda x  : x in anteriorColor, coloresGanadores))
-                    
+                    anteriorColor = decodeLineNumber(metro.getLinea(lista[i-1]))
+                    coloresEmergencia = list(
+                        filter(lambda x: x in anteriorColor, coloresGanadores))
+
                     # Si ni con esas salimos de dudas, vemos el siguiente del siguiente
                     if(len(coloresEmergencia) > 1):
                         if(i+2 < len(lista)):
-                            superSiguienteColor = decoder(metro.getLinea(lista[i+2]))
-                            coloresSuperMalvados = list(filter(lambda x  : x in superSiguienteColor, coloresEmergencia))
-                            colores.append(coloresSuperMalvados[0]) # AÑADO COLOR
+                            superSiguienteColor = decodeLineNumber(
+                                metro.getLinea(lista[i+2]))
+                            coloresSuperMalvados = list(
+                                filter(lambda x: x in superSiguienteColor, coloresEmergencia))
+                            # AÑADO COLOR
+                            colores.append(coloresSuperMalvados[0])
 
                         else:
-                            colores.append(coloresEmergencia[0]) # AÑADO COLOR
+                            colores.append(coloresEmergencia[0])  # AÑADO COLOR
 
-                    else: # Si nos basta con el anterior me meto aquí
-                        colores.append(coloresEmergencia[0]) # AÑADO COLOR
+                    else:  # Si nos basta con el anterior me meto aquí
+                        colores.append(coloresEmergencia[0])  # AÑADO COLOR
 
-                elif(len(coloresGanadores) > 1): # Si nos basta con el siguiente me meto aquí
-                   if(i+2 < len(lista)):
-                       superSiguienteColor = decoder(metro.getLinea(lista[i+2]))
-                       coloresSuperMalvados = list(filter(lambda x  : x in superSiguienteColor, coloresGanadores))
-                       colores.append(coloresSuperMalvados[0]) # AÑADO COLOR
-                   else:
-                       colores.append(coloresGanadores[0]) # AÑADO COLOR
+                elif(len(coloresGanadores) > 1):  # Si nos basta con el siguiente me meto aquí
+                    if(i+2 < len(lista)):
+                        superSiguienteColor = decodeLineNumber(
+                            metro.getLinea(lista[i+2]))
+                        coloresSuperMalvados = list(
+                            filter(lambda x: x in superSiguienteColor, coloresGanadores))
+                        colores.append(coloresSuperMalvados[0])  # AÑADO COLOR
+                    else:
+                        colores.append(coloresGanadores[0])  # AÑADO COLOR
                 else:
-                    colores.append(coloresGanadores[0]) # AÑADO COLOR
-            else: # si soy la última estación, comparo con el anterior
-                anteriorColor = decoder(metro.getLinea(lista[i-1]))
-                ganador = list(filter(lambda x  : x in anteriorColor, miColor))
-                if(len(ganador) > 1 and i-2 >= 0): # Miro la anterior de la anterior.
-                    anteriorAnteriorColor = decoder(metro.getLinea(lista[i-1]))
-                    oldColor = list(filter(lambda x  : x in anteriorAnteriorColor, ganador))
-                    colores.append(oldColor[0]) # AÑADO COLOR
+                    colores.append(coloresGanadores[0])  # AÑADO COLOR
+            else:  # si soy la última estación, comparo con el anterior
+                anteriorColor = decodeLineNumber(metro.getLinea(lista[i-1]))
+                ganador = list(filter(lambda x: x in anteriorColor, miColor))
+                # Miro la anterior de la anterior.
+                if(len(ganador) > 1 and i-2 >= 0):
+                    anteriorAnteriorColor = decodeLineNumber(metro.getLinea(lista[i-1]))
+                    oldColor = list(
+                        filter(lambda x: x in anteriorAnteriorColor, ganador))
+                    colores.append(oldColor[0])  # AÑADO COLOR
 
-                else: # me basta con el anterior
-                    colores.append(ganador[0]) # AÑADO COLOR
+                else:  # me basta con el anterior
+                    colores.append(ganador[0])  # AÑADO COLOR
 
-        else: # Solo hay un color, menos mal :)
-            colores.append(miColor[0]) # AÑADO COLOR
+        else:  # Solo hay un color, menos mal :)
+            colores.append(miColor[0])  # AÑADO COLOR
 
     return colores
 
-def algoritmo(inicio, fin, trasbordo):
-    if(inicio == fin):
-        return [inicio]
 
-    cerrados = []
-    cerrados.append(inicio)
-
-    terminado = False
-    acumulador = 0
+def algoritmo(inicio, fin, transbordo):
+    initialDistance = metro.getDistanciaRecta(inicio, fin) if inicio == fin else 0
+    listaAbierta = {inicio: {"g": 0, "h": initialDistance, "f": initialDistance, "padre": -1}}
+    listaCerrada = {}  # {idNodo: idNodoPadre}
 
     # f(n) = g(n) + h(n)
-    while(not terminado):
+    while(fin not in listaCerrada.keys()):
+        thisNodeId = sorted(listaAbierta, key=lambda elem: listaAbierta[elem]["f"])[0]
+        thisNode = listaAbierta[thisNodeId].copy()
+        thisNodeLines = set(decodeLineNumber(metro.getLinea(thisNodeId)))
 
-        vecinos = metro.getDistanciaTren(cerrados[len(cerrados) - 1]) # Vecinos del nodo
-        f = 1000000 # variable muy grande para luego quedarnos con la f() mas peque
-        nodo = 0 # nodo siguiente al que nos movemos
+        listaCerrada[thisNodeId] = thisNode["padre"]
+        del listaAbierta[thisNodeId]
 
-        for i in vecinos:
-            if(i in cerrados):
-                vecinos[i] = -1
-        
+        vecinos = metro.getDistanciaTren(thisNodeId)  # [{idVecino: distanciaAel}, ...]
 
-        for i in vecinos:
-            if(vecinos[i] != -1 and i != fin):
-                suma = 0
-                if(trasbordo and metro.getLinea(i) > 3):
-                    suma = 100000
-                aux = acumulador + vecinos[i] + suma + metro.getDistanciaRecta(i,fin)
-                if(f > aux):
-                    nodo = i
-                    f = aux
+        vecinos = dict(filter(lambda vecino: vecino[0] not in listaCerrada, vecinos.items()))
+        if(len(vecinos) == 0):
+            continue
 
-            elif(i == fin):
-                nodo = i
-                break
+        for idVecino, distanciVecino in vecinos.items():
+            vecinoLines = set(decodeLineNumber(metro.getLinea(idVecino)))
+            prevNodeLines = set(decodeLineNumber(metro.getLinea(thisNode["padre"]))) if thisNode["padre"] != -1 else set([1, 2, 3])
 
-        acumulador += vecinos[nodo]
+            g = thisNode["g"] + distanciVecino
 
-        if(nodo == fin):
-            cerrados.append(nodo)
-            terminado = True
-        else:
-            if(nodo != inicio):
-                cerrados.append(nodo)
+            if(len(thisNodeLines & vecinoLines & prevNodeLines) == 0):
+                g += 100 if not transbordo else 10000
 
-    colores = lineasMetro(cerrados)
-    return cerrados, colores
+            h = 0 if idVecino == fin else metro.getDistanciaRecta(idVecino, fin)
+            f = g + h
 
-def main():
-    linea, color = algoritmo(5, 18, False)
-    for i in linea:
-        print(i, end = " ")
-    print()
-    for j in color:
-        print(j, end = " ")
-    print()
-    print(len(linea))
-    print(len(color))
+            if(idVecino not in listaAbierta or listaAbierta[idVecino]["f"] > f):
+                listaAbierta[idVecino] = {"g": g, "h": h, "f": f, "padre": thisNodeId}
 
-main()
+    pathList = []
+    while(fin != -1):
+        pathList.append(fin)
+        fin = listaCerrada[fin]
+
+    result = list(reversed(pathList))
+    return result, lineasMetro(result)
