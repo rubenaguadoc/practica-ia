@@ -97,11 +97,12 @@ def algoritmo(inicio, fin, transbordo):
         for idVecino, distanciVecino in vecinos.items():
             vecinoLines = set(decodeLineNumber(metro.getLinea(idVecino)))
             prevNodeLines = set(decodeLineNumber(metro.getLinea(thisNode["padre"]))) if thisNode["padre"] != -1 else set([1, 2, 3])
+            specialCase = thisNode["padre"] in [5, 20] and idVecino in [5, 20]  # Caso especial no detectable de otra manera cuando se va por la linea roja
 
-            g = thisNode["g"] + distanciVecino
+            g = thisNode["g"] + distanciVecino + 300  # Cuantas menos paradas, mejor, cada parada añade un delay de 1/3 de trayecto entre estaciones
 
-            if(len(thisNodeLines & vecinoLines & prevNodeLines) == 0):
-                g += 100 if not transbordo else 10000
+            if(len(thisNodeLines & vecinoLines & prevNodeLines) == 0 or specialCase):
+                g += 1250 if not transbordo else 1000000  # Penalización equibalente a 1 parada y cuarto
 
             h = 0 if idVecino == fin else metro.getDistanciaRecta(idVecino, fin)
             f = g + h

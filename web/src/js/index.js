@@ -137,6 +137,9 @@ function triggerSearch(e) {
     .then(response => response.json())
     .then(({result, lines}) => {
       lines = lines.map(l => l - 1);
+      try {
+        if (lines[lines.length - 1] !== lines[lines.length - 2]) lines[lines.length - 1] = lines[lines.length - 2]
+      }catch {}
       // let initStation = Math.min(inicio, fin);
       // const result = [];
       // const lines = [0, 0, 1, 1, 1];
