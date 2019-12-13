@@ -60,7 +60,13 @@ def lineasMetro(lista):
                     elif(len(coloresGanadores) == 1):
                         colores.append(coloresGanadores[0]) # AÑADO COLOR
                 else:
-                    colores.append(coloresGanadores[0]) # AÑADO COLOR
+                    if(i-1 >= 0):
+                        if(lista[i-1] == 36 and lista[i] == 5):
+                            colores.append(3)
+                        else:
+                            colores.append(coloresGanadores[0]) # AÑADO COLOR
+                    else:
+                        colores.append(coloresGanadores[0]) # AÑADO COLOR
             else:  # si soy la última estación, comparo con el anterior
                 anteriorColor = decodeLineNumber(metro.getLinea(lista[i-1]))
                 ganador = list(filter(lambda x: x in anteriorColor, miColor))
@@ -122,4 +128,3 @@ def algoritmo(inicio, fin, transbordo):
 
     result = list(reversed(pathList))
     return result, lineasMetro(result)
-
