@@ -23,6 +23,7 @@ def lineasMetro(lista):
             if(i+1 < len(lista)):
                 siguienteColor = decoder(metro.getLinea(lista[i+1]))
                 coloresGanadores = list(filter(lambda x  : x in siguienteColor, miColor))
+                print("Colores ganadores:", coloresGanadores)
 
                 # Si hay mas de un color ganador, miro mi anterior (si lo hay)
                 if(i-1 >= 0 and len(coloresGanadores) > 1):
@@ -34,36 +35,36 @@ def lineasMetro(lista):
                         if(i+2 < len(lista)):
                             superSiguienteColor = decoder(metro.getLinea(lista[i+2]))
                             coloresSuperMalvados = list(filter(lambda x  : x in superSiguienteColor, coloresEmergencia))
-                            
-                            # Y ya si con esas no va, se añade el primero de los numeros por que si.
-                            if(len(coloresSuperMalvados) > 1):
-                                colores.append(coloresGanadores[0]) # AÑADO COLOR
-                            else: # Si el siguiente del siguiente va bien al fin
-                                colores.append(coloresSuperMalvados[0])
+                            colores.append(coloresSuperMalvados[0]) # AÑADO COLOR
+
                         else:
-                            colores.append(coloresEmergencia[0])
+                            colores.append(coloresEmergencia[0]) # AÑADO COLOR
 
                     else: # Si nos basta con el anterior me meto aquí
-                        colores.append(coloresEmergencia[0])
+                        colores.append(coloresEmergencia[0]) # AÑADO COLOR
 
-                else: # Si nos basta con el siguiente me meto aquí
-                    colores.append(coloresGanadores[0])
+                elif(len(coloresGanadores) > 1): # Si nos basta con el siguiente me meto aquí
+                   if(i+2 < len(lista)):
+                       superSiguienteColor = decoder(metro.getLinea(lista[i+2]))
+                       coloresSuperMalvados = list(filter(lambda x  : x in superSiguienteColor, coloresGanadores))
+                       colores.append(coloresSuperMalvados[0]) # AÑADO COLOR
+                   else:
+                       colores.append(coloresGanadores[0]) # AÑADO COLOR
+                else:
+                    colores.append(coloresGanadores[0]) # AÑADO COLOR
             else: # si soy la última estación, comparo con el anterior
                 anteriorColor = decoder(metro.getLinea(lista[i-1]))
                 ganador = list(filter(lambda x  : x in anteriorColor, miColor))
                 if(len(ganador) > 1 and i-2 >= 0): # Miro la anterior de la anterior.
                     anteriorAnteriorColor = decoder(metro.getLinea(lista[i-1]))
                     oldColor = list(filter(lambda x  : x in anteriorAnteriorColor, ganador))
+                    colores.append(oldColor[0]) # AÑADO COLOR
 
-                    if(len(oldColor) > 1): # me pego un tiro y añado lo que quiera
-                        colores.append(ganador[0])
-                    else:
-                        colores.append(oldColor[0])
                 else: # me basta con el anterior
-                    colores.append(ganador[0])
+                    colores.append(ganador[0]) # AÑADO COLOR
 
         else: # Solo hay un color, menos mal :)
-            colores.append(miColor[0])
+            colores.append(miColor[0]) # AÑADO COLOR
 
     return colores
 
@@ -116,7 +117,7 @@ def algoritmo(inicio, fin, trasbordo):
     return cerrados, colores
 
 def main():
-    linea, color = algoritmo(30, 22, False)
+    linea, color = algoritmo(5, 18, False)
     for i in linea:
         print(i, end = " ")
     print()
