@@ -60,14 +60,7 @@ def lineasMetro(lista):
                     elif(len(coloresGanadores) == 1):
                         colores.append(coloresGanadores[0]) # AÑADO COLOR
                 else:
-                    if(i-1 >= 0):
-                        if(lista[i-1] == 36 and lista[i] == 5):
-                            colores[len(colores)-1] = 3
-                            colores.append(3)
-                        else:
-                            colores.append(coloresGanadores[0]) # AÑADO COLOR
-                    else:
-                        colores.append(coloresGanadores[0]) # AÑADO COLOR
+                    colores.append(coloresGanadores[0]) # AÑADO COLOR
             else:  # si soy la última estación, comparo con el anterior
                 anteriorColor = decodeLineNumber(metro.getLinea(lista[i-1]))
                 ganador = list(filter(lambda x: x in anteriorColor, miColor))
@@ -82,6 +75,20 @@ def lineasMetro(lista):
 
         else:  # Solo hay un color, menos mal :)
             colores.append(miColor[0]) # AÑADO COLOR
+
+    # KANDA -> SHINOKUBO
+    if(lista[0] == 19 and lista[len(lista) - 1] == 4 and lista[2] == 36): # Verifico que tire por ochanomizu
+        colores = {1, 2, 3, 1, 1}
+    # SHINOKUBO -> KANDA 
+    elif(lista[0] == 4 and lista[len(lista) - 1] == 19 and lista[2] == 36): # Verifico que tire por ochanomizu
+        colores = {1, 3, 2, 1, 1}
+
+    # OCHANOMIZU -> HARAJUKO
+    elif(lista[0] == 36 and lista[len(lista) - 1] == 7 and lista[1] == 5): # Verifico que tire por shinjuku
+        colores = {3, 1, 1, 1}
+    # HARAJUKO -> OCHANOMIZU
+    elif(lista[0] == 7 and lista[len(lista) - 1] == 36 and lista[2] == 5): # Verifico que tire por shinjuku
+        colores = {1, 1, 3, 3}
 
     return colores
 
@@ -135,8 +142,8 @@ def algoritmo(inicio, fin, transbordo):
     return result, lineasMetro(result), finalWeight
 
 def main():
-    res, color, basura = algoritmo(19, 4, False)
-    for i in range(0, len(res)):
-        print(res[i], "::", color[i])
+    res = algoritmo(19, 4, False)
+    for i in res:
+        print(i)
 
 main()
