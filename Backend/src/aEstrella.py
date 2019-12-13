@@ -62,6 +62,7 @@ def lineasMetro(lista):
                 else:
                     if(i-1 >= 0):
                         if(lista[i-1] == 36 and lista[i] == 5):
+                            colores[len(colores)-1] = 3
                             colores.append(3)
                         else:
                             colores.append(coloresGanadores[0]) # AÑADO COLOR
@@ -132,3 +133,10 @@ def algoritmo(inicio, fin, transbordo):
 
     result = list(reversed(pathList))
     return result, lineasMetro(result), finalWeight
+
+def main():
+    res, color, basura = algoritmo(19, 4, False)
+    for i in range(0, len(res)):
+        print(res[i], "::", color[i])
+
+main()
