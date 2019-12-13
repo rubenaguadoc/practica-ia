@@ -83,6 +83,7 @@ def algoritmo(inicio, fin, transbordo):
     initialDistance = metro.getDistanciaRecta(inicio, fin) if inicio != fin else 0
     listaAbierta = {inicio: {"g": 0, "h": initialDistance, "f": initialDistance, "padre": -1}}
     listaCerrada = {}  # {idNodo: idNodoPadre}
+    finalWeight = 0
 
     # f(n) = g(n) + h(n)
     while(fin not in listaCerrada.keys()):
@@ -90,6 +91,9 @@ def algoritmo(inicio, fin, transbordo):
         thisNode = listaAbierta[thisNodeId].copy()
         thisNodeLines = set(decodeLineNumber(metro.getLinea(thisNodeId)))
 
+        if(thisNodeId == fin):
+            finalWeight = thisNode["f"]
+        
         listaCerrada[thisNodeId] = thisNode["padre"]
         del listaAbierta[thisNodeId]
 
@@ -121,5 +125,5 @@ def algoritmo(inicio, fin, transbordo):
         fin = listaCerrada[fin]
 
     result = list(reversed(pathList))
-    return result, lineasMetro(result)
+    return result, lineasMetro(result), finalWeight
 

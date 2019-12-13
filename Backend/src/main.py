@@ -7,19 +7,22 @@ app = Flask("tokyio")
 CORS(app)
 api = Api(app)
 
-class Stations(Resource):
-  def post(self):
-    parser = reqparse.RequestParser()
-    parser.add_argument("inicio")
-    parser.add_argument("fin")
-    parser.add_argument("transbordos")
-    args = parser.parse_args()
 
-    result, lines = aStar(int(args["inicio"]), int(args["fin"]), args["transbordos"] == "True")
-    return {
-      "result": result,
-      "lines": lines 
-    }
+class Stations(Resource):
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument("inicio")
+        parser.add_argument("fin")
+        parser.add_argument("transbordos")
+        args = parser.parse_args()
+
+        result, lines, weight = aStar(int(args["inicio"]), int(args["fin"]), args["transbordos"] == "True")
+        return {
+            "result": result,
+            "lines": lines,
+            "weight": weight
+        }
+
 
 api.add_resource(Stations, "/")
 
