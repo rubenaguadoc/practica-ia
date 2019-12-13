@@ -78,17 +78,17 @@ def lineasMetro(lista):
 
     # KANDA -> SHINOKUBO
     if(lista[0] == 19 and lista[len(lista) - 1] == 4 and lista[2] == 36): # Verifico que tire por ochanomizu
-        colores = {1, 2, 3, 1, 1}
+        colores = [1, 2, 3, 1, 1]
     # SHINOKUBO -> KANDA 
     elif(lista[0] == 4 and lista[len(lista) - 1] == 19 and lista[2] == 36): # Verifico que tire por ochanomizu
-        colores = {1, 3, 2, 1, 1}
+        colores = [1, 3, 2, 1, 1]
 
     # OCHANOMIZU -> HARAJUKO
     elif(lista[0] == 36 and lista[len(lista) - 1] == 7 and lista[1] == 5): # Verifico que tire por shinjuku
-        colores = {3, 1, 1, 1}
+        colores = [3, 1, 1, 1]
     # HARAJUKO -> OCHANOMIZU
     elif(lista[0] == 7 and lista[len(lista) - 1] == 36 and lista[2] == 5): # Verifico que tire por shinjuku
-        colores = {1, 1, 3, 3}
+        colores = [1, 1, 3, 3]
 
     return colores
 
@@ -141,9 +141,3 @@ def algoritmo(inicio, fin, transbordo):
     result = list(reversed(pathList))
     return result, lineasMetro(result), finalWeight
 
-def main():
-    res = algoritmo(19, 4, False)
-    for i in res:
-        print(i)
-
-main()
