@@ -120,9 +120,9 @@ def algoritmo(inicio, fin, transbordo):
 
 def main():
 
-    res = algoritmo(36, 2, False)
+    res = algoritmo(5, 20, False)
 
     for i, color in res:
         print("(", i, ") color", color, end=" ")
 
-# main()
+main()
