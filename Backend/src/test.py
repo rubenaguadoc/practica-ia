@@ -4,9 +4,9 @@ import aEstrella
 
 
 def test():
-    for i in range(1, 36):
+    for i in range(1, 37):
         print(i)
-        for j in range(1, 36):
+        for j in range(1, 37):
             try:
                 aEstrella.algoritmo(i, j, True)
                 aEstrella.algoritmo(i, j, False)
