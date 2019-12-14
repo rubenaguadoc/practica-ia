@@ -170,7 +170,7 @@ function fetchAndPaint(params) {
       resultsDiv.style.opacity = 1;
       resultsDiv.querySelector('.stations').innerText = result.length;
       resultsDiv.querySelector('.time').innerText = (
-        (weight - undoPenalty / 40000) *
+        ((weight - undoPenalty) / 40000) *
         60 *
         parseTime(params.hora)
       ).toFixed(1);
