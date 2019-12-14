@@ -76,20 +76,55 @@ def lineasMetro(lista):
         else:  # Solo hay un color, menos mal :)
             colores.append(miColor[0]) # AÑADO COLOR
 
-    # KANDA -> SHINOKUBO
-    if(lista[0] == 19 and lista[len(lista) - 1] == 4 and lista[2] == 36): # Verifico que tire por ochanomizu
-        colores = [1, 2, 3, 1, 1]
-    # SHINOKUBO -> KANDA 
-    elif(lista[0] == 4 and lista[len(lista) - 1] == 19 and lista[2] == 36): # Verifico que tire por ochanomizu
-        colores = [1, 3, 2, 1, 1]
 
-    # OCHANOMIZU -> HARAJUKO
-    elif(lista[0] == 36 and lista[len(lista) - 1] == 7 and lista[1] == 5): # Verifico que tire por shinjuku
-        colores = [3, 1, 1, 1]
-    # HARAJUKO -> OCHANOMIZU
-    elif(lista[0] == 7 and lista[len(lista) - 1] == 36 and lista[2] == 5): # Verifico que tire por shinjuku
-        colores = [1, 1, 3, 3]
+    # Pasamos por Ochanomizu?
+    if(36 in lista):
+        for i in range(0, len(lista)):
+            if(lista[i] == 36):
+                # Miro si Ochanomizu esta en medio de algun camino
+                if(i-1 >= 0 and i+1< len(lista)):
+                    # Miro si la anterior a mi es Tokyo, de ser así se pinta en Rojo.
+                    if(lista[i-1] == 18):
+#                        colores[i-1] = 3 # Pinto Tokyo de rojo ###### COMENTAR/DESCOMENTAR ######
+                        colores[i] = 3 # Pinto Ochanomizu de rojo 
+                    # Miro si la anterior a mi es Shinjuku, de ser así se pinta en Rojo
+                    elif(lista[i-1] == 5):
+                        colores[i-1] = 3 # Pinto Shinjuku de rojo ###### COMENTAR/DESCOMENTAR ######
+                        colores[i] = 3 # Pinto Ochanomizu de rojo 
+                    # Miro si la anterior a mi es Akihabara, de ser así se pinta en Amarillo
+                    elif(lista[i-1] == 20):
+                        colores[i] = 2 # Pinto Ochanomizu de Amarillo
+                    # Lo mismo pero mirando si la siguiente es Tokyo, Shinjuku o Akihabara
+                    if(lista[i+1] == 18):
+#                        colores[i+1] = 3 # Pinto Tokyo de rojo ###### COMENTAR/DESCOMENTAR ######
+                        colores[i] = 3 # Pinto Ochanomizu de rojo 
+                    elif(lista[i+1] == 5):
+#                        colores[i+1] = 3 # Pinto Shinjuku de rojo ###### COMENTAR/DESCOMENTAR ######
+                        colores[i] = 3 # Pinto Ochanomizu de rojo 
+                    elif(lista[i+1] == 20):
+                        colores[i] = 2 # Pinto Ochanomizu de Amarillo
+                # Mismo proceso, pero esta vez, como si partiesemos de Ochanomizu
+                elif(i == 0): 
+                    if(lista[i+1] == 18): # La siguiente es Tokyo
+#                        colores[i+1] = 3 # Pinto Tokyo de Rojo ###### COMENTAR/DESCOMENTAR ######
+                        colores[i] = 3 # Pinto Ochanomizu de Rojo 
+                    elif(lista[i+1] == 5): # La siguiente es Shinjuku
+#                        colores[i+1] = 3 # Pinto Shinjuku de Rojo ###### COMENTAR/DESCOMENTAR ######
+                        colores[i] = 3 # Pinto Ochanomizu de Rojo 
+                    elif(lista[i+1] == 20): # La siguiente es Akihabara
+                        colores[i] = 2 # Pinto Ochanomizu de Amarillo
+                # Mismo proceso, pero esta vez, la última estación es Ochanomizu
+                else:
+                    if(lista[i-1] == 18): # La anterior es Tokyo
+#                        colores[i-1] = 3 # Pinto Tokyo de Rojo ###### COMENTAR/DESCOMENTAR ######
+                        colores[i] = 3 # Pinto Ochanomizu de Rojo 
+                    elif(lista[i-1] == 5): # La anterior es Shinjuku
+#                        colores[i-1] = 3 # Pinto Shinjuku de Rojo ###### COMENTAR/DESCOMENTAR ######
+                        colores[i] = 3 # Pinto Ochanomizu de Rojo 
+                    elif(lista[i-1] == 20): # La Anterior es Akihabara
+                        colores[i] = 2 # Pinto Ochanomizu de Amarillo
 
+    print(colores)
     return colores
 
 
@@ -141,3 +176,7 @@ def algoritmo(inicio, fin, transbordo):
     result = list(reversed(pathList))
     return result, lineasMetro(result), finalWeight
 
+#def main():
+#    res = algoritmo(19, 7, False)
+#    res = algoritmo(7, 19, False)
+#main()
