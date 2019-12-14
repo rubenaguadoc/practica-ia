@@ -57,7 +57,7 @@ def lineasMetro(lista):
                             colores.append(coloresSuperMalvados[0]) # AÑADO COLOR
                         else:
                             colores.append(coloresGanadores[0]) # AÑADO COLOR
-                    elif(len(coloresGanadores) == 1):
+                    else:
                         colores.append(coloresGanadores[0]) # AÑADO COLOR
                 else:
                     colores.append(coloresGanadores[0]) # AÑADO COLOR
@@ -69,12 +69,14 @@ def lineasMetro(lista):
                     anteriorAnteriorColor = decodeLineNumber(metro.getLinea(lista[i-1]))
                     oldColor = list(filter(lambda x: x in anteriorAnteriorColor, ganador))
                     colores.append(oldColor[0]) # AÑADO COLOR
-
+                elif(len(ganador) > 1):
+                    colores.append(ganador[0])
                 else:  # me basta con el anterior
                     colores.append(ganador[0]) # AÑADO COLOR
 
         else:  # Solo hay un color, menos mal :)
             colores.append(miColor[0]) # AÑADO COLOR
+
 
 
     # Pasamos por Ochanomizu?
@@ -104,7 +106,7 @@ def lineasMetro(lista):
                     elif(lista[i+1] == 20):
                         colores[i] = 2 # Pinto Ochanomizu de Amarillo
                 # Mismo proceso, pero esta vez, como si partiesemos de Ochanomizu
-                elif(i == 0): 
+                elif(i == 0 and i+1<len(lista)): 
                     if(lista[i+1] == 18): # La siguiente es Tokyo
 #                        colores[i+1] = 3 # Pinto Tokyo de Rojo ###### COMENTAR/DESCOMENTAR ######
                         colores[i] = 3 # Pinto Ochanomizu de Rojo 
@@ -119,12 +121,15 @@ def lineasMetro(lista):
 #                        colores[i-1] = 3 # Pinto Tokyo de Rojo ###### COMENTAR/DESCOMENTAR ######
                         colores[i] = 3 # Pinto Ochanomizu de Rojo 
                     elif(lista[i-1] == 5): # La anterior es Shinjuku
-#                        colores[i-1] = 3 # Pinto Shinjuku de Rojo ###### COMENTAR/DESCOMENTAR ######
+                        colores[i-1] = 1 # Pinto Shinjuku de Rojo ###### COMENTAR/DESCOMENTAR ######
                         colores[i] = 3 # Pinto Ochanomizu de Rojo 
                     elif(lista[i-1] == 20): # La Anterior es Akihabara
                         colores[i] = 2 # Pinto Ochanomizu de Amarillo
 
-    print(colores)
+    if(len(lista) == 2): # Caso super especial en el que vamos de Shinjuku a Ochanomizu o alreves
+        if(5 in lista and 36 in lista):
+            colores = [3, 3]
+
     return colores
 
 
@@ -177,6 +182,6 @@ def algoritmo(inicio, fin, transbordo):
     return result, lineasMetro(result), finalWeight
 
 #def main():
-#    res = algoritmo(19, 7, False)
-#    res = algoritmo(7, 19, False)
+#    res = algoritmo(36, 4, False)
+#    res = algoritmo(4, 36, False)
 #main()
