@@ -145,6 +145,7 @@ function fetchAndPaint(params) {
       let trans = 0;
       for (let i = 1; i < lines.length; i++)
         if (lines[i] !== lines[i - 1]) trans++;
+      const undoPenalty = params.transbordos ? 100000 * trans:0;
 
       if (
         lines.length >= 3 &&
@@ -169,7 +170,7 @@ function fetchAndPaint(params) {
       resultsDiv.style.opacity = 1;
       resultsDiv.querySelector('.stations').innerText = result.length;
       resultsDiv.querySelector('.time').innerText = (
-        (weight / 40000) *
+        (weight - undoPenalty / 40000) *
         60 *
         parseTime(params.hora)
       ).toFixed(1);
