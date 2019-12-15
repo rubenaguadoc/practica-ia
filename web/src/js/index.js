@@ -73,6 +73,15 @@ const map = d3
     select.valid = true;
     select.foundation_.notchOutline(true);
     select.label_.float(true);
+
+    Array.from(document.querySelectorAll('tspan')).forEach(el => {
+      if (el.innerHTML === name) {
+        el.style.fontWeight = 'bolder';
+      } else if (lastSet !== 1) {
+        el.style.fontWeight = 'normal';
+      }
+    });
+
     if (lastSet === 1) {
       triggerSearch();
     }
@@ -145,7 +154,7 @@ function fetchAndPaint(params) {
       let trans = 0;
       for (let i = 1; i < lines.length; i++)
         if (lines[i] !== lines[i - 1]) trans++;
-      const undoPenalty = params.transbordos ? 100000 * trans:0;
+      const undoPenalty = params.transbordos ? 100000 * trans : 0;
 
       if (
         lines.length >= 3 &&
