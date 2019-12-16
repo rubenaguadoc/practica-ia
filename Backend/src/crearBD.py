@@ -4,7 +4,7 @@ import sqlite3 # Libreria de la BDD que vamos a usar.
 import os
 
 def fillMetroTokyo(file, db):
-    print("Insertando distancias reales (el camino que hace el tren): ", end="")
+    print("Insertando los datos en la tabla 2: ", end="")
 
     data = file.readlines()
     cursor = db.cursor()
@@ -28,7 +28,7 @@ def fillMetroTokyo(file, db):
     print("EXITO \n");
 
 def fillLineaVerde(file, db):
-    print("Insertando distancias en linea recta (osea, las que son 1001 conexiones): ", end="")
+    print("Insertando datos en la tabla 1: ", end="")
 
     data = file.readlines()
     cursor = db.cursor()
@@ -51,7 +51,7 @@ def fillLineaVerde(file, db):
     print("EXITO \n");
 
 def fillIds(file, db):
-    print("Insertando datos de los ids: ", end="")
+    print("Insertando datos en la tabla 3: ", end="")
 
     data = file.readlines()
     i = 0
@@ -72,7 +72,7 @@ def fillIds(file, db):
 
 # Crea una tabla exista o no. Si existe borra la que hay y crea una nueva.
 def createTable(db):
-    print("Creando la tabla de los datos de los trenes: ", end="") # end hace que el print de abajo se imprima seguido
+    print("Tabla 1 - Creando la tabla con las relaciones entre paradas: ", end="") # end hace que el print de abajo se imprima seguido
     db.execute("DROP TABLE IF EXISTS tren")
     db.execute('''CREATE TABLE tren
                 (
@@ -83,7 +83,7 @@ def createTable(db):
                 ); ''')
     print("EXITO \n")
 
-    print("Creando la tabla de los datos de las lineas rectas: ", end="") # end hace que el print de abajo se imprima seguido
+    print("Tabla 2 - Creando la tabla con las lineas rectas: ", end="") # end hace que el print de abajo se imprima seguido
     db.execute("DROP TABLE IF EXISTS recta")
     db.execute('''CREATE TABLE recta
                 (
@@ -93,7 +93,7 @@ def createTable(db):
                 ); ''')
     print("EXITO \n")
 
-    print("Creando tabla ids: ", end="") # end hace que el print de abajo se imprima seguido
+    print("Tabla 3 - Creando tabla de datos: ", end="") # end hace que el print de abajo se imprima seguido
     db.execute("DROP TABLE IF EXISTS ids")
     db.execute('''CREATE TABLE ids
                 (
@@ -107,17 +107,17 @@ if __name__ == '__main__':
     print("")
 
     try:
-        os.remove("./src/metroDataBase.db")
+        os.remove("metroDataBase.db")
     except Exception:
         pass
-    db = sqlite3.connect('src/metroDataBase.db')
+    db = sqlite3.connect('metroDataBase.db')
     createTable(db)
 
-    file = open("../MetroFiles/ids.txt", 'r')
+    file = open("../../MetroFiles/ids.txt", 'r')
     fillIds(file, db)
-    file = open("../MetroFiles/tren.txt", 'r')
+    file = open("../../MetroFiles/tren.txt", 'r')
     fillMetroTokyo(file, db)
-    file = open("../MetroFiles/recta.txt", 'r')
+    file = open("../../MetroFiles/recta.txt", 'r')
     fillLineaVerde(file, db)
 
     db.close()
